@@ -22,25 +22,19 @@ const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme }) => {
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center space-x-2">
             {/* Logo */}
-            <Link href="/">
-              <a className="flex items-center">
-                <Logo />
-              </a>
+            <Link href="/" className="flex items-center">
+              <Logo />
             </Link>
           </div>
           
           <div className="flex items-center">
             {/* Desktop Navigation */}
             <nav className="hidden md:flex space-x-6">
-              <Link href="/">
-                <a className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-500 font-medium">
-                  Home
-                </a>
+              <Link href="/" className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-500 font-medium">
+                Home
               </Link>
-              <Link href="/calculator">
-                <a className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-500 font-medium">
-                  Calculator
-                </a>
+              <Link href="/calculator" className="text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-500 font-medium">
+                Calculator
               </Link>
             </nav>
             
@@ -64,15 +58,11 @@ const Navbar: React.FC<NavbarProps> = ({ theme, toggleTheme }) => {
       {/* Mobile Navigation Menu */}
       <div className={`md:hidden ${mobileMenuOpen ? 'block' : 'hidden'} bg-white dark:bg-cosmic-dark border-b border-gray-200 dark:border-gray-800`}>
         <div className="container mx-auto px-4 py-3 space-y-3">
-          <Link href="/">
-            <a className="block px-3 py-2 rounded-md text-gray-700 dark:text-gray-300 font-medium hover:bg-gray-100 dark:hover:bg-gray-800">
-              Home
-            </a>
+          <Link href="/" className="block px-3 py-2 rounded-md text-gray-700 dark:text-gray-300 font-medium hover:bg-gray-100 dark:hover:bg-gray-800">
+            Home
           </Link>
-          <Link href="/calculator">
-            <a className="block px-3 py-2 rounded-md text-gray-700 dark:text-gray-300 font-medium hover:bg-gray-100 dark:hover:bg-gray-800">
-              Calculator
-            </a>
+          <Link href="/calculator" className="block px-3 py-2 rounded-md text-gray-700 dark:text-gray-300 font-medium hover:bg-gray-100 dark:hover:bg-gray-800">
+            Calculator
           </Link>
         </div>
       </div>
