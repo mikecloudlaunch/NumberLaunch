@@ -51,7 +51,7 @@ export const calculateTax = (inputs: IncomeInputs): TaxResult => {
         taxByBracket.push({
           bracket: `$${bracket.min.toLocaleString()} - $${bracket.max === Infinity ? '+' : bracket.max.toLocaleString()}`,
           amount: taxForBracket,
-          rate: bracket.rate * 100
+          rate: bracket.rate * 100  // Convert to cents per dollar (e.g., 0.19 becomes 19 cents)
         });
         incomeTax += taxForBracket;
       }
@@ -108,8 +108,8 @@ export const calculateTax = (inputs: IncomeInputs): TaxResult => {
     monthlyTakeHome,
     superannuation,
     totalPackage,
-    marginalTaxRate: marginalTaxRate * 100,
-    effectiveTaxRate: effectiveTaxRate * 100,
+    marginalTaxRate: marginalTaxRate * 100,  // Convert to percentage
+    effectiveTaxRate: effectiveTaxRate,  // Keep as decimal for proper formatting
     taxByBracket
   };
 };
