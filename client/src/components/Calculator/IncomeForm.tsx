@@ -167,7 +167,7 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ onCalculate, taxResult }) => {
                             type="number"
                             className="pr-12"
                             onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
-                            value={field.value === 0 ? '' : field.value}
+                            value={field.value}
                             min={0}
                             max={100}
                           />
@@ -176,8 +176,10 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ onCalculate, taxResult }) => {
                           </div>
                         </div>
                       </FormControl>
-                      <FormDescription>
-                        Set to 0% if you are self-employed or have no employer super contributions
+                      <FormDescription className={field.value === 0 ? "font-medium text-orange-500 dark:text-orange-400" : ""}>
+                        {field.value === 0 
+                          ? "Self-employed mode: No employer super contributions"
+                          : "Set to 0% if you are self-employed or have no employer super contributions"}
                       </FormDescription>
                       <FormDescription className="text-red-500">
                         {form.formState.errors.superRate?.message}
