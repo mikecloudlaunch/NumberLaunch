@@ -340,7 +340,7 @@ const IncomeAnalysisPDF = ({ taxResult, inputs }: PDFDocumentProps) => {
             </View>
             {taxResult.taxByBracket.map((bracket, index) => (
               <View key={index.toString()} style={styles.tableRow}>
-                <Text style={styles.tableCol1}>{bracket.rate}c tax bracket</Text>
+                <Text style={styles.tableCol1}>{bracket.rate === 0.325 ? '32.5c' : bracket.rate === 0 ? '0c' : bracket.rate === 0.19 ? '19c' : bracket.rate === 0.37 ? '37c' : bracket.rate === 0.45 ? '45c' : `${bracket.rate * 100}c`} tax bracket</Text>
                 <Text style={styles.tableCol2}>{formatCurrency(bracket.amount)}</Text>
                 <Text style={styles.tableCol3}>{bracket.bracket}</Text>
               </View>

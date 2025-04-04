@@ -203,6 +203,53 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Test endpoint for PDF tax bracket formatting
+  app.get("/api/pdf/format-check", (req, res) => {
+    try {
+      const taxBracketSample = [
+        { bracket: "$0 - $18,200", amount: 0, rate: 0 },
+        { bracket: "$18,201 - $45,000", amount: 5092, rate: 0.19 },
+        { bracket: "$45,001 - $120,000", amount: 16250, rate: 0.325 },
+        { bracket: "$120,001 - $180,000", amount: 29467, rate: 0.37 },
+        { bracket: "$180,001+", amount: 51667, rate: 0.45 }
+      ];
+      
+      const formattedBrackets = taxBracketSample.map(bracket => {
+        let rateDisplay = "";
+        if (bracket.rate === 0.325) {
+          rateDisplay = "32.5c";
+        } else if (bracket.rate === 0) {
+          rateDisplay = "0c";
+        } else if (bracket.rate === 0.19) {
+          rateDisplay = "19c";
+        } else if (bracket.rate === 0.37) {
+          rateDisplay = "37c";
+        } else if (bracket.rate === 0.45) {
+          rateDisplay = "45c";
+        } else {
+          rateDisplay = `${bracket.rate * 100}c`;
+        }
+        
+        return {
+          ...bracket,
+          rateDisplay
+        };
+      });
+      
+      res.json({
+        success: true,
+        message: "PDF tax bracket formatting check",
+        data: formattedBrackets
+      });
+    } catch (error) {
+      console.error("Error in PDF format check:", error);
+      res.status(500).json({
+        success: false,
+        message: "Error checking PDF formatting"
+      });
+    }
+  });
+
   // Create HTTP server
   const httpServer = createServer(app);
 
