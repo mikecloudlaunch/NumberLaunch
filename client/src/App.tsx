@@ -9,6 +9,7 @@ import Calculator from "@/pages/calculator";
 import About from "@/pages/about";
 import Privacy from "@/pages/privacy";
 import Terms from "@/pages/terms";
+import Contact from "@/pages/contact";
 import Layout from "@/components/Layout/Layout";
 
 function Router() {
@@ -29,6 +30,7 @@ function Router() {
       <Route path="/about" component={About} />
       <Route path="/privacy" component={Privacy} />
       <Route path="/terms" component={Terms} />
+      <Route path="/contact" component={Contact} />
       <Route component={NotFound} />
     </Switch>
   );

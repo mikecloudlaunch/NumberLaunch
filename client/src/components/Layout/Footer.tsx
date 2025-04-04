@@ -72,7 +72,7 @@ const Footer: React.FC = () => {
               </li>
 
               <li>
-                <a href="#" className="hover:text-white transition-colors duration-200">Contact Support</a>
+                <Link href="/contact" className="hover:text-white transition-colors duration-200">Contact Support</Link>
               </li>
             </ul>
           </div>
