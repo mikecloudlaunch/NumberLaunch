@@ -36,12 +36,12 @@ const Home: React.FC = () => {
           
           {/* Space-themed decoration */}
           <div className="mt-16 sm:mt-24 max-w-4xl mx-auto relative">
-            <div className="relative overflow-hidden rounded-xl shadow-2xl shadow-primary-500/20">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary-600/5 to-secondary-600/5 dark:from-primary-700/10 dark:to-secondary-700/10"></div>
+            <div className="relative overflow-hidden rounded-xl shadow-2xl shadow-primary-500/20 border border-gray-700">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary-700/10 to-secondary-700/10"></div>
               <img 
                 src="https://images.unsplash.com/photo-1581089776575-677522b612e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" 
                 alt="NumberLaunch Dashboard" 
-                className="w-full h-auto object-cover rounded-xl" 
+                className="w-full h-[300px] object-cover rounded-xl" 
               />
             </div>
             {/* Floating elements to create space theme */}
@@ -164,12 +164,16 @@ const Home: React.FC = () => {
       <FAQSection />
       
       {/* Call to Action */}
-      <section className="py-16 bg-gradient-to-r from-primary-600 to-secondary-600 text-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="py-16 bg-gradient-to-r from-gray-900 via-primary-950 to-gray-900 text-white relative overflow-hidden">
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary-500 rounded-full blur-3xl"></div>
+          <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-secondary-500 rounded-full blur-3xl"></div>
+        </div>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <h2 className="text-3xl font-bold font-space mb-4">Ready to calculate your income?</h2>
-          <p className="text-xl text-primary-100 mb-8 max-w-3xl mx-auto">Get a clear picture of your finances with our advanced Australian income calculator.</p>
+          <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">Get a clear picture of your finances with our advanced Australian income calculator.</p>
           <Link href="/calculator">
-            <Button size="lg" variant="secondary">
+            <Button size="lg" variant="outline" className="bg-transparent border-2 border-primary-400 text-white hover:bg-primary-900/30 hover:text-white">
               <Calculator className="mr-2 h-5 w-5" />
               Start Calculating Now
             </Button>

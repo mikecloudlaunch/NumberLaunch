@@ -37,21 +37,21 @@ const faqItems: FAQItem[] = [
 
 const FAQSection: React.FC = () => {
   return (
-    <section className="py-16 bg-gray-50 dark:bg-gray-900">
+    <section className="py-16 bg-gray-900">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold font-space text-gray-900 dark:text-white mb-4">Frequently Asked Questions</h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">Find answers to common questions about income tax calculations in Australia.</p>
+          <h2 className="text-3xl font-bold font-space text-white mb-4">Frequently Asked Questions</h2>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">Find answers to common questions about income tax calculations in Australia.</p>
         </div>
         
         <div className="max-w-3xl mx-auto">
           <Accordion type="single" collapsible className="space-y-6">
             {faqItems.map((item, index) => (
-              <AccordionItem key={index} value={`faq-${index}`} className="bg-white dark:bg-gray-800 rounded-lg shadow-sm">
-                <AccordionTrigger className="text-lg font-medium text-gray-900 dark:text-white p-6">
+              <AccordionItem key={index} value={`faq-${index}`} className="bg-gray-800 rounded-lg shadow-sm border border-gray-700">
+                <AccordionTrigger className="text-lg font-medium text-white p-6">
                   {item.question}
                 </AccordionTrigger>
-                <AccordionContent className="p-6 pt-0 text-gray-600 dark:text-gray-300">
+                <AccordionContent className="p-6 pt-0 text-gray-300">
                   {item.answer}
                 </AccordionContent>
               </AccordionItem>

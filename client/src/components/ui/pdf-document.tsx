@@ -42,9 +42,11 @@ const styles = StyleSheet.create({
   },
   section: {
     marginBottom: 20,
-    backgroundColor: '#1E293B', // slate-800
-    borderRadius: 6,
-    padding: 12,
+    backgroundColor: '#111827', // gray-900
+    borderRadius: 8,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: '#374151', // gray-700
   },
   sectionTitle: {
     fontSize: 14,
@@ -94,12 +96,14 @@ const styles = StyleSheet.create({
     width: '48%',
   },
   distributionBar: {
-    height: 20,
-    marginVertical: 10,
-    borderRadius: 5,
-    backgroundColor: '#334155', // slate-700
+    height: 24,
+    marginVertical: 12,
+    borderRadius: 12,
+    backgroundColor: '#1F2937', // gray-800
     flexDirection: 'row',
     overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: '#374151', // gray-700
   },
   segment: {
     height: '100%',
@@ -136,8 +140,10 @@ const styles = StyleSheet.create({
     borderBottomColor: '#334155', // slate-700
   },
   tableHeader: {
-    backgroundColor: '#334155', // slate-700
+    backgroundColor: '#1E293B', // slate-800
     fontWeight: 'bold',
+    borderTopLeftRadius: 4,
+    borderTopRightRadius: 4,
   },
   tableCol1: {
     width: '45%',
@@ -212,11 +218,20 @@ const IncomeAnalysisPDF = ({ taxResult, inputs }: PDFDocumentProps) => {
   return (
     <Document>
       <Page size="A4" style={styles.page}>
-        {/* Header with simple logo */}
+        {/* Header with space-themed logo */}
         <View style={styles.header}>
           <View style={styles.logoContainer}>
-            <Svg width={24} height={24} viewBox="0 0 24 24">
-              <Circle cx={12} cy={12} r={10} fill="#3B82F6" />
+            <Svg width={30} height={30} viewBox="0 0 24 24">
+              {/* Planet with rings */}
+              <Circle cx={12} cy={12} r={8} fill="#3B82F6" />
+              <Circle cx={12} cy={12} r={10} stroke="#8B5CF6" strokeWidth={0.5} fill="none" />
+              <Circle cx={12} cy={12} r={12} stroke="#EC4899" strokeWidth={0.3} fill="none" />
+              
+              {/* Stars */}
+              <Circle cx={5} cy={5} r={0.5} fill="#F9FAFB" />
+              <Circle cx={18} cy={7} r={0.7} fill="#F9FAFB" />
+              <Circle cx={20} cy={16} r={0.5} fill="#F9FAFB" />
+              <Circle cx={3} cy={15} r={0.6} fill="#F9FAFB" />
             </Svg>
             <View>
               <Text style={styles.logoText}>NumberLaunch</Text>
@@ -284,29 +299,29 @@ const IncomeAnalysisPDF = ({ taxResult, inputs }: PDFDocumentProps) => {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Income Distribution</Text>
           <View style={styles.distributionBar}>
-            <View style={[styles.segment, { width: `${takeHomePercentage}%`, backgroundColor: '#10B981' }]} />
-            <View style={[styles.segment, { width: `${incomeTaxPercentage}%`, backgroundColor: '#3B82F6' }]} />
-            <View style={[styles.segment, { width: `${medicarePercentage}%`, backgroundColor: '#8B5CF6' }]} />
+            <View style={[styles.segment, { width: `${takeHomePercentage}%`, backgroundColor: '#059669' }]} />
+            <View style={[styles.segment, { width: `${incomeTaxPercentage}%`, backgroundColor: '#4F46E5' }]} />
+            <View style={[styles.segment, { width: `${medicarePercentage}%`, backgroundColor: '#C026D3' }]} />
             {inputs.hasHecsHelp && (
-              <View style={[styles.segment, { width: `${hecsPercentage}%`, backgroundColor: '#6B7280' }]} />
+              <View style={[styles.segment, { width: `${hecsPercentage}%`, backgroundColor: '#0EA5E9' }]} />
             )}
           </View>
           <View style={styles.legend}>
             <View style={styles.legendItem}>
-              <View style={[styles.colorBox, { backgroundColor: '#10B981' }]} />
+              <View style={[styles.colorBox, { backgroundColor: '#059669' }]} />
               <Text style={styles.legendText}>Take Home ({takeHomePercentage.toFixed(1)}%)</Text>
             </View>
             <View style={styles.legendItem}>
-              <View style={[styles.colorBox, { backgroundColor: '#3B82F6' }]} />
+              <View style={[styles.colorBox, { backgroundColor: '#4F46E5' }]} />
               <Text style={styles.legendText}>Income Tax ({incomeTaxPercentage.toFixed(1)}%)</Text>
             </View>
             <View style={styles.legendItem}>
-              <View style={[styles.colorBox, { backgroundColor: '#8B5CF6' }]} />
+              <View style={[styles.colorBox, { backgroundColor: '#C026D3' }]} />
               <Text style={styles.legendText}>Medicare ({medicarePercentage.toFixed(1)}%)</Text>
             </View>
             {inputs.hasHecsHelp && (
               <View style={styles.legendItem}>
-                <View style={[styles.colorBox, { backgroundColor: '#6B7280' }]} />
+                <View style={[styles.colorBox, { backgroundColor: '#0EA5E9' }]} />
                 <Text style={styles.legendText}>HECS/HELP ({hecsPercentage.toFixed(1)}%)</Text>
               </View>
             )}

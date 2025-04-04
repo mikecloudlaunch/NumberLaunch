@@ -38,7 +38,7 @@ const IncomeResults: React.FC<IncomeResultsProps> = ({ taxResult }) => {
           <Button 
             variant="secondary" 
             size="sm" 
-            className="hidden sm:block bg-white text-primary-700 hover:bg-gray-50"
+            className="hidden sm:block"
           >
             <FileText className="w-4 h-4 mr-2" />
             Download PDF Report

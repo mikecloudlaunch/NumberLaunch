@@ -301,20 +301,20 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ onCalculate, taxResult }) => {
             )}
 
             <div className="flex flex-col sm:flex-row gap-4 pt-2">
-              <Button type="submit" className="bg-primary-600 hover:bg-primary-700">
+              <Button type="submit">
                 <Calculator className="mr-2 h-4 w-4" />
                 Calculate Income
               </Button>
               
-              <Button type="button" variant="outline" onClick={resetForm}>
+              <Button type="button" variant="secondary" onClick={resetForm}>
                 <RefreshCw className="mr-2 h-4 w-4" />
                 Reset
               </Button>
               
               {taxResult && (
                 <Button 
-                  variant="outline" 
-                  className="w-full sm:w-auto bg-primary-900/20 hover:bg-primary-800/30 border-primary-800 text-primary-400"
+                  variant="outline"
+                  className="w-full sm:w-auto border-primary-600 text-primary-400"
                 >
                   <FileText className="mr-2 h-4 w-4" />
                   Generate PDF
