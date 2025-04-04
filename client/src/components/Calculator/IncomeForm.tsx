@@ -153,7 +153,8 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ onCalculate, taxResult }) => {
                         onCheckedChange={(checked) => {
                           setUseCustomSuperRate(checked);
                           // Set default rate when toggling on, or reset to default when toggling off
-                          field.onChange(checked ? 11 : DEFAULT_VALUES.superRate);
+                          // Update the form immediately with the default value (11%)
+                          field.onChange(DEFAULT_VALUES.superRate);
                         }}
                       />
                     </FormControl>
