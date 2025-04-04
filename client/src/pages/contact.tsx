@@ -210,7 +210,7 @@ export default function Contact() {
                     <div className="flex justify-center md:justify-start">
                       <ReCAPTCHA
                         ref={recaptchaRef}
-                        sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY || "6LfNPQorAAAAAMz5LQpapPw8-eMMXtS2rxt6WCIg"} // Using env var or fallback to test key
+                        sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY || "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"} // Test key
                         onChange={handleCaptchaChange}
                         theme="dark"
                       />
