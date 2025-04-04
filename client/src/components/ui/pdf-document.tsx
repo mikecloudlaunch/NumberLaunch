@@ -1,23 +1,23 @@
 import React from 'react';
-import { Page, Text, View, Document, StyleSheet, Svg, Circle } from '@react-pdf/renderer';
+import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 import { TaxResult, formatCurrency, formatPercentage } from '@/lib/tax-calculator';
 import { PDF_CONFIG } from '@/lib/constants';
 
-// Define styles for dark theme PDF
+// Define styles for simplified dark theme PDF - removed complex elements
 const styles = StyleSheet.create({
   page: {
     flexDirection: 'column',
-    backgroundColor: '#0F172A', // Dark background (slate-900)
+    backgroundColor: '#1A1E2D', // Darker blue-gray for better contrast
     padding: 30,
     fontFamily: 'Helvetica',
-    color: '#E2E8F0', // Text color (slate-200)
+    color: '#E2E8F0', // Light text
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     borderBottomWidth: 1,
-    borderBottomColor: '#334155', // slate-700
+    borderBottomColor: '#334155', 
     paddingBottom: 15,
     marginBottom: 20,
   },
@@ -26,67 +26,68 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logoText: {
-    marginLeft: 10,
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
-    color: '#F8FAFC', // slate-50
+    color: '#F8FAFC',
   },
   logoSubtext: {
     fontSize: 10,
-    color: '#94A3B8', // slate-400
+    color: '#94A3B8',
+    marginTop: 2,
   },
   dateInfo: {
     fontSize: 10,
-    color: '#94A3B8', // slate-400
+    color: '#94A3B8',
     textAlign: 'right',
   },
   section: {
-    marginBottom: 20,
-    backgroundColor: '#111827', // gray-900
-    borderRadius: 8,
-    padding: 16,
+    marginBottom: 16,
+    backgroundColor: '#252A3A', // Slightly lighter than background
+    borderRadius: 6,
+    padding: 12,
     borderWidth: 1,
-    borderColor: '#374151', // gray-700
+    borderColor: '#374151',
   },
   sectionTitle: {
     fontSize: 14,
     fontWeight: 'bold',
-    marginBottom: 10,
-    color: '#F8FAFC', // slate-50
+    marginBottom: 8,
+    color: '#F8FAFC',
   },
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingVertical: 5,
+    paddingVertical: 4,
   },
   label: {
     fontSize: 10,
-    color: '#94A3B8', // slate-400
+    color: '#94A3B8',
   },
   value: {
     fontSize: 10,
     fontWeight: 'bold',
     textAlign: 'right',
-    color: '#F8FAFC', // slate-50
+    color: '#F8FAFC',
   },
   totalRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingVertical: 5,
+    paddingVertical: 4,
     borderTopWidth: 1,
-    borderTopColor: '#334155', // slate-700
-    marginTop: 5,
+    borderTopColor: '#334155',
+    marginTop: 4,
+    marginBottom: 2,
   },
   totalLabel: {
     fontSize: 10,
     fontWeight: 'bold',
-    color: '#F8FAFC', // slate-50
+    color: '#F8FAFC',
   },
   totalValue: {
     fontSize: 10,
     fontWeight: 'bold',
     textAlign: 'right',
-    color: '#38BDF8', // sky-400 for highlight
+    color: '#38BDF8', // Highlight color
   },
   twoColumnLayout: {
     flexDirection: 'row',
@@ -96,14 +97,12 @@ const styles = StyleSheet.create({
     width: '48%',
   },
   distributionBar: {
-    height: 24,
-    marginVertical: 12,
-    borderRadius: 12,
-    backgroundColor: '#1F2937', // gray-800
+    height: 20,
+    marginVertical: 10,
+    borderRadius: 4,
+    backgroundColor: '#1F2937',
     flexDirection: 'row',
     overflow: 'hidden',
-    borderWidth: 1,
-    borderColor: '#374151', // gray-700
   },
   segment: {
     height: '100%',
@@ -111,72 +110,71 @@ const styles = StyleSheet.create({
   legend: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    marginTop: 5,
+    justifyContent: 'flex-start',
+    marginTop: 4,
   },
   legendItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    width: '33%',
-    marginBottom: 5,
+    width: '48%',
+    marginBottom: 4,
+    marginRight: '2%',
   },
   colorBox: {
     width: 8,
     height: 8,
-    marginRight: 5,
+    marginRight: 4,
     borderRadius: 2,
   },
   legendText: {
     fontSize: 8,
-    color: '#94A3B8', // slate-400
+    color: '#94A3B8',
   },
   table: {
-    marginVertical: 10,
+    marginVertical: 8,
   },
   tableRow: {
     flexDirection: 'row',
-    paddingVertical: 5,
+    paddingVertical: 4,
     borderBottomWidth: 1,
-    borderBottomColor: '#334155', // slate-700
+    borderBottomColor: '#334155',
   },
   tableHeader: {
-    backgroundColor: '#1E293B', // slate-800
+    backgroundColor: '#1E293B',
     fontWeight: 'bold',
-    borderTopLeftRadius: 4,
-    borderTopRightRadius: 4,
   },
   tableCol1: {
     width: '45%',
     fontSize: 9,
-    paddingHorizontal: 5,
-    color: '#E2E8F0', // slate-200
+    paddingHorizontal: 4,
+    color: '#E2E8F0',
   },
   tableCol2: {
     width: '30%',
     fontSize: 9,
     textAlign: 'right',
-    paddingHorizontal: 5,
-    color: '#E2E8F0', // slate-200
+    paddingHorizontal: 4,
+    color: '#E2E8F0',
   },
   tableCol3: {
     width: '25%',
     fontSize: 9,
     textAlign: 'right',
-    paddingHorizontal: 5,
-    color: '#E2E8F0', // slate-200
+    paddingHorizontal: 4,
+    color: '#E2E8F0',
   },
   disclaimer: {
     fontSize: 8,
-    color: '#94A3B8', // slate-400
-    marginTop: 20,
+    color: '#94A3B8',
+    marginTop: 16,
+    paddingTop: 8,
     borderTopWidth: 1,
-    borderTopColor: '#334155', // slate-700
-    paddingTop: 10,
+    borderTopColor: '#334155',
   },
   disclaimerTitle: {
     fontWeight: 'bold',
-    marginBottom: 3,
-    color: '#E2E8F0', // slate-200
+    marginBottom: 2,
+    color: '#E2E8F0',
   },
   footer: {
     position: 'absolute',
@@ -184,7 +182,7 @@ const styles = StyleSheet.create({
     left: 30,
     right: 30,
     fontSize: 8,
-    color: '#94A3B8', // slate-400
+    color: '#94A3B8',
     textAlign: 'center',
   }
 });
@@ -201,13 +199,16 @@ interface PDFDocumentProps {
 }
 
 const IncomeAnalysisPDF = ({ taxResult, inputs }: PDFDocumentProps) => {
-  const date = new Date().toLocaleDateString('en-AU', {
+  // Format date for display and filename
+  const dateObj = new Date();
+  const date = dateObj.toLocaleDateString('en-AU', {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
   });
   
-  const referenceId = `NL-${Math.floor(Math.random() * 100000).toString().padStart(5, '0')}`;
+  // Create a simple reference ID
+  const referenceId = `NL-${Math.floor(1000 + Math.random() * 9000)}`;
   
   // Calculate distribution percentages
   const takeHomePercentage = (taxResult.takeHomeIncome / taxResult.grossIncome) * 100;
@@ -216,23 +217,11 @@ const IncomeAnalysisPDF = ({ taxResult, inputs }: PDFDocumentProps) => {
   const hecsPercentage = (taxResult.hecsRepayment / taxResult.grossIncome) * 100;
 
   return (
-    <Document>
+    <Document title={`NumberLaunch-TaxReport-${dateObj.toISOString().split('T')[0]}`}>
       <Page size="A4" style={styles.page}>
-        {/* Header with space-themed logo */}
+        {/* Simple header with logo text */}
         <View style={styles.header}>
           <View style={styles.logoContainer}>
-            <Svg width={30} height={30} viewBox="0 0 24 24">
-              {/* Planet with rings */}
-              <Circle cx={12} cy={12} r={8} fill="#3B82F6" />
-              <Circle cx={12} cy={12} r={10} stroke="#8B5CF6" strokeWidth={0.5} fill="none" />
-              <Circle cx={12} cy={12} r={12} stroke="#EC4899" strokeWidth={0.3} fill="none" />
-              
-              {/* Stars */}
-              <Circle cx={5} cy={5} r={0.5} fill="#F9FAFB" />
-              <Circle cx={18} cy={7} r={0.7} fill="#F9FAFB" />
-              <Circle cx={20} cy={16} r={0.5} fill="#F9FAFB" />
-              <Circle cx={3} cy={15} r={0.6} fill="#F9FAFB" />
-            </Svg>
             <View>
               <Text style={styles.logoText}>NumberLaunch</Text>
               <Text style={styles.logoSubtext}>{PDF_CONFIG.title}</Text>
@@ -280,7 +269,7 @@ const IncomeAnalysisPDF = ({ taxResult, inputs }: PDFDocumentProps) => {
                 <Text style={styles.value}>{formatCurrency(taxResult.totalTax)}</Text>
               </View>
               <View style={styles.row}>
-                <Text style={styles.label}>Superannuation ({inputs.superRate}%):</Text>
+                <Text style={styles.label}>Superannuation ({inputs.superRate.toFixed(1)}%):</Text>
                 <Text style={styles.value}>{formatCurrency(taxResult.superannuation)}</Text>
               </View>
               <View style={styles.totalRow}>
@@ -295,7 +284,7 @@ const IncomeAnalysisPDF = ({ taxResult, inputs }: PDFDocumentProps) => {
           </View>
         </View>
 
-        {/* Income Distribution */}
+        {/* Income Distribution - Simplified */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Income Distribution</Text>
           <View style={styles.distributionBar}>
@@ -328,7 +317,7 @@ const IncomeAnalysisPDF = ({ taxResult, inputs }: PDFDocumentProps) => {
           </View>
         </View>
 
-        {/* Tax Details */}
+        {/* Tax Details - Simplified */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>Tax Details</Text>
           <View style={styles.table}>
@@ -361,14 +350,14 @@ const IncomeAnalysisPDF = ({ taxResult, inputs }: PDFDocumentProps) => {
           </View>
         </View>
 
-        {/* Disclaimer */}
+        {/* Disclaimer - Simplified */}
         <View style={styles.disclaimer}>
           <Text style={styles.disclaimerTitle}>Disclaimer:</Text>
           <Text>{PDF_CONFIG.disclaimer}</Text>
         </View>
 
         {/* Footer */}
-        <Text style={styles.footer}>{PDF_CONFIG.footer}</Text>
+        <Text style={styles.footer}>{PDF_CONFIG.footer} | {date}</Text>
       </Page>
     </Document>
   );

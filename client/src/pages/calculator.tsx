@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { PDFViewer } from '@react-pdf/renderer';
+import { PDFViewer, PDFDownloadLink } from '@react-pdf/renderer';
 import IncomeForm from '@/components/Calculator/IncomeForm';
 import IncomeResults from '@/components/Calculator/IncomeResults';
 import IncomeAnalysisPDF from '@/components/ui/pdf-document';
@@ -16,8 +16,6 @@ const Calculator: React.FC = () => {
       hecsDebtTotal: DEFAULT_VALUES.hecsDebtTotal
     })
   );
-  
-  const [showPdfPreview, setShowPdfPreview] = useState(false);
   
   const handleCalculate = (values: {
     grossIncome: number;
@@ -66,46 +64,31 @@ const Calculator: React.FC = () => {
             </p>
           </div>
           
-          {/* Enhanced PDF preview section */}
+          {/* Simplified PDF Section - Download Only */}
           <div className="flex flex-col items-center">
-            {/* Controls first */}
-            <div className="w-full max-w-4xl mb-6 flex items-center justify-center space-x-4">
-              <button 
-                onClick={() => setShowPdfPreview(!showPdfPreview)}
-                className="bg-primary hover:bg-primary-600 text-white px-4 py-2 rounded-md flex items-center transition-colors"
+            <div className="w-full max-w-4xl bg-gray-800/50 rounded-lg border border-gray-700 p-10 flex flex-col items-center justify-center">
+              <svg 
+                className="w-16 h-16 text-gray-500 mb-4"
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24" 
+                xmlns="http://www.w3.org/2000/svg"
               >
-                {showPdfPreview ? (
-                  <>
-                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                    Hide Preview
-                  </>
-                ) : (
-                  <>
-                    <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                    </svg>
-                    Show Preview
-                  </>
-                )}
-              </button>
+                <path 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  strokeWidth="2" 
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                />
+              </svg>
+              <h3 className="text-xl font-medium text-gray-300 mb-2">PDF Report Ready</h3>
+              <p className="text-gray-400 text-center max-w-md mb-6">
+                Download a detailed report of your tax calculation with a complete breakdown
+                of your income, deductions, and tax obligations.
+              </p>
               
-              <button 
-                className="bg-secondary hover:bg-secondary-600 text-white px-4 py-2 rounded-md flex items-center transition-colors"
-              >
-                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                </svg>
-                Download PDF
-              </button>
-            </div>
-            
-            {/* PDF Viewer with transition */}
-            {showPdfPreview ? (
-              <div className="w-full max-w-4xl transform transition-all duration-500 bg-gray-800 shadow-2xl rounded-lg overflow-hidden border border-gray-700">
-                <PDFViewer className="w-full h-[600px]">
+              <PDFDownloadLink
+                document={
                   <IncomeAnalysisPDF 
                     taxResult={taxResult} 
                     inputs={{
@@ -113,44 +96,34 @@ const Calculator: React.FC = () => {
                       superRate: taxResult.superannuation / taxResult.grossIncome * 100,
                       taxDeductions: taxResult.grossIncome - taxResult.taxableIncome,
                       hasHecsHelp: taxResult.hecsRepayment > 0,
-                      hecsDebtTotal: taxResult.hecsRepayment > 0 ? 25000 : 0, // Example amount
+                      hecsDebtTotal: taxResult.hecsRepayment > 0 ? 25000 : 0,
                     }}
                   />
-                </PDFViewer>
-              </div>
-            ) : (
-              <div className="w-full max-w-4xl bg-gray-800/50 rounded-lg border border-gray-700 p-10 flex flex-col items-center justify-center">
-                <svg 
-                  className="w-16 h-16 text-gray-500 mb-4"
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24" 
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path 
-                    strokeLinecap="round" 
-                    strokeLinejoin="round" 
-                    strokeWidth="2" 
-                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                  />
-                </svg>
-                <h3 className="text-xl font-medium text-gray-300 mb-2">Preview Hidden</h3>
-                <p className="text-gray-400 text-center max-w-md mb-6">
-                  Click "Show Preview" to view your detailed PDF report with all calculations. 
-                  You can also download the PDF directly.
-                </p>
-                <button 
-                  onClick={() => setShowPdfPreview(true)}
-                  className="bg-primary hover:bg-primary-600 text-white px-4 py-2 rounded-md flex items-center transition-colors"
-                >
-                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                  </svg>
-                  Show Preview
-                </button>
-              </div>
-            )}
+                }
+                fileName={`NumberLaunch-TaxReport-${new Date().toISOString().split('T')[0]}.pdf`}
+                className="bg-secondary hover:bg-secondary-600 text-white px-6 py-3 rounded-md flex items-center transition-all transform hover:scale-105 shadow-md hover:shadow-lg"
+              >
+                {({ loading }) => (
+                  <>
+                    {loading ? (
+                      <svg className="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                    ) : (
+                      <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                      </svg>
+                    )}
+                    {loading ? 'Preparing PDF...' : 'Download Tax Report'}
+                  </>
+                )}
+              </PDFDownloadLink>
+              
+              <p className="text-gray-500 text-xs mt-4">
+                All information is processed locally - no data is sent to servers.
+              </p>
+            </div>
           </div>
           
           {/* Back to Top Button */}
