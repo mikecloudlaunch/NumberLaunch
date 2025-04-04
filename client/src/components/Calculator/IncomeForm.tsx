@@ -145,15 +145,15 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ onCalculate, taxResult }) => {
                   <div className="flex items-center justify-between mb-2">
                     <FormLabel className="flex items-center">
                       Custom Superannuation Rate
-                      <span className="inline-flex items-center justify-center ml-1 w-4 h-4 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs cursor-help" title="Toggle to set your own super contribution rate">?</span>
+                      <span className="inline-flex items-center justify-center ml-1 w-4 h-4 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs cursor-help" title="Toggle to set your own super contribution rate (set to 0% for self-employed)">?</span>
                     </FormLabel>
                     <FormControl>
                       <Switch
                         checked={useCustomSuperRate}
                         onCheckedChange={(checked) => {
                           setUseCustomSuperRate(checked);
-                          // Always start with base rate of 11% whether turning on or off custom rate
-                          field.onChange(11);
+                          // Set default rate when toggling on, or reset to default when toggling off
+                          field.onChange(checked ? 11 : DEFAULT_VALUES.superRate);
                         }}
                       />
                     </FormControl>
@@ -176,6 +176,9 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ onCalculate, taxResult }) => {
                           </div>
                         </div>
                       </FormControl>
+                      <FormDescription>
+                        Set to 0% if you are self-employed or have no employer super contributions
+                      </FormDescription>
                       <FormDescription className="text-red-500">
                         {form.formState.errors.superRate?.message}
                       </FormDescription>
