@@ -100,7 +100,7 @@ const Calculator: React.FC = () => {
                     }}
                   />
                 }
-                fileName={`NumberLaunch-TaxReport-${new Date().toISOString().split('T')[0]}.pdf`}
+                fileName={`NumberLaunch-Report-${new Date().toISOString().split('T')[0]}.pdf`}
                 className="bg-secondary hover:bg-secondary-600 text-white px-6 py-3 rounded-md flex items-center transition-all transform hover:scale-105 shadow-md hover:shadow-lg"
               >
                 {({ loading }) => (
