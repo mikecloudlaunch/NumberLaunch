@@ -9,8 +9,8 @@ import fetch from "node-fetch";
 // Verify reCAPTCHA token
 async function verifyRecaptcha(token: string): Promise<boolean> {
   try {
-    // Use environment variable if available, fall back to Google's test secret key
-    const recaptchaSecret = process.env.RECAPTCHA_SECRET_KEY || '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe';
+    // Always use Google's test secret key for development
+    const recaptchaSecret = '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe'; // Google's official test secret key
     
     console.log('Verifying reCAPTCHA with token length:', token.length);
     

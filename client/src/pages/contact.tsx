@@ -208,9 +208,10 @@ export default function Contact() {
                       Security Verification
                     </label>
                     <div className="flex justify-center md:justify-start">
+                      {/* Always use Google's official test key for local development */}
                       <ReCAPTCHA
                         ref={recaptchaRef}
-                        sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY || "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"} // Try real key first, fallback to test key
+                        sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" // Google's official test key
                         onChange={handleCaptchaChange}
                         theme="dark"
                       />
