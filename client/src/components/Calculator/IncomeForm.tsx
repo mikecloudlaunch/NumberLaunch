@@ -338,7 +338,7 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ onCalculate, taxResult }) => {
                         <Loader className="mr-2 h-4 w-4 animate-spin" /> : 
                         <FileText className="mr-2 h-4 w-4" />
                       }
-                      {loading ? "Preparing..." : "Save PDF"}
+                      {loading ? "Preparing..." : "Download Report"}
                     </Button>
                   )}
                 </PDFDownloadLink>
