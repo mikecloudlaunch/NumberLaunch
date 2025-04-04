@@ -24,32 +24,57 @@ export default function Contact() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSuccess(true);
-      
-      toast({
-        title: "Message sent successfully",
-        description: "We'll get back to you as soon as possible.",
-        variant: "default",
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       });
       
-      // Reset form after success
-      setTimeout(() => {
-        setFormData({
-          name: '',
-          email: '',
-          subject: '',
-          message: ''
+      const result = await response.json();
+      
+      if (response.ok && result.success) {
+        setIsSuccess(true);
+        
+        toast({
+          title: "Message sent successfully",
+          description: "We'll get back to you as soon as possible.",
+          variant: "default",
         });
-        setIsSuccess(false);
-      }, 3000);
-    }, 1500);
+        
+        // Reset form after success
+        setTimeout(() => {
+          setFormData({
+            name: '',
+            email: '',
+            subject: '',
+            message: ''
+          });
+          setIsSuccess(false);
+        }, 3000);
+      } else {
+        toast({
+          title: "Failed to send message",
+          description: result.message || "Please try again later.",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      console.error("Error sending message:", error);
+      toast({
+        title: "Error",
+        description: "There was a problem sending your message. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (

@@ -3,6 +3,7 @@ import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { insertTaxCalculationSchema } from "@shared/schema";
 import { z } from "zod";
+import { emailSchema, sendEmail, initMailService } from "./email";
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // API routes for NumberLaunch application
@@ -199,6 +200,43 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({
         success: false,
         message: "Failed to register user"
+      });
+    }
+  });
+
+  // Contact form email endpoint
+  app.post("/api/contact", async (req, res) => {
+    try {
+      // Validate the request body
+      const validationResult = emailSchema.safeParse(req.body);
+      
+      if (!validationResult.success) {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid contact form data",
+          errors: validationResult.error.errors
+        });
+      }
+      
+      // Send the email
+      const result = await sendEmail(validationResult.data);
+      
+      if (!result.success) {
+        return res.status(500).json({
+          success: false,
+          message: result.message
+        });
+      }
+      
+      res.status(200).json({
+        success: true,
+        message: "Email sent successfully"
+      });
+    } catch (error) {
+      console.error("Failed to send contact email:", error);
+      res.status(500).json({
+        success: false,
+        message: "Failed to send contact email"
       });
     }
   });
