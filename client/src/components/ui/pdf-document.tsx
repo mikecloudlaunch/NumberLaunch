@@ -222,7 +222,7 @@ const IncomeAnalysisPDF = ({ taxResult, inputs }: PDFDocumentProps) => {
   const hecsPercentage = (taxResult.hecsRepayment / taxResult.grossIncome) * 100;
 
   return (
-    <Document title={`NumberLaunch-TaxReport-${dateObj.toISOString().split('T')[0]}`}>
+    <Document title={`NumberLaunch-Report-${dateObj.toISOString().split('T')[0]}`}>
       <Page size="A4" style={styles.page}>
         {/* Header with logo */}
         <View style={styles.header}>
@@ -334,29 +334,27 @@ const IncomeAnalysisPDF = ({ taxResult, inputs }: PDFDocumentProps) => {
           <Text style={styles.sectionTitle}>Tax Details</Text>
           <View style={styles.table}>
             <View style={[styles.tableRow, styles.tableHeader]}>
-              <Text style={styles.tableCol1}>Tax Component</Text>
-              <Text style={styles.tableCol2}>Amount</Text>
-              <Text style={styles.tableCol3}>Rate</Text>
+              <Text style={styles.tableCol1}>Income Bracket</Text>
+              <Text style={styles.tableCol2}>Tax Rate (cents/$)</Text>
+              <Text style={styles.tableCol3}>Amount</Text>
             </View>
             {taxResult.taxByBracket.map((bracket, index) => (
               <View key={index.toString()} style={styles.tableRow}>
-                <Text style={styles.tableCol1}>{bracket.rate === 0.325 ? '32.5¢' : bracket.rate === 0 ? '0.0¢' : bracket.rate === 0.19 ? '19.0¢' : bracket.rate === 0.37 ? '37.0¢' : bracket.rate === 0.45 ? '45.0¢' : `${(bracket.rate * 100).toFixed(1)}¢`} tax bracket</Text>
-                <Text style={styles.tableCol2}>{formatCurrency(bracket.amount)}</Text>
-                <Text style={styles.tableCol3}>{bracket.bracket}</Text>
+                <Text style={styles.tableCol1}>{bracket.bracket}</Text>
+                <Text style={styles.tableCol2}>{bracket.rate * 100 === 32.5 ? '32.5¢' : bracket.rate * 100 === 0 ? '0.0¢' : bracket.rate * 100 === 19 ? '19.0¢' : bracket.rate * 100 === 37 ? '37.0¢' : bracket.rate * 100 === 45 ? '45.0¢' : `${(bracket.rate * 100).toFixed(1)}¢`}</Text>
+                <Text style={styles.tableCol3}>{formatCurrency(bracket.amount)}</Text>
               </View>
             ))}
             <View style={styles.tableRow}>
               <Text style={styles.tableCol1}>Medicare Levy</Text>
-              <Text style={styles.tableCol2}>{formatCurrency(taxResult.medicareTax)}</Text>
-              <Text style={styles.tableCol3}>2.0%</Text>
+              <Text style={styles.tableCol2}>2.0%</Text>
+              <Text style={styles.tableCol3}>{formatCurrency(taxResult.medicareTax)}</Text>
             </View>
             {inputs.hasHecsHelp && (
               <View style={styles.tableRow}>
                 <Text style={styles.tableCol1}>HECS/HELP Repayment</Text>
-                <Text style={styles.tableCol2}>{formatCurrency(taxResult.hecsRepayment)}</Text>
-                <Text style={styles.tableCol3}>
-                  {(taxResult.hecsRepayment / taxResult.grossIncome * 100).toFixed(1)}%
-                </Text>
+                <Text style={styles.tableCol2}>-</Text>
+                <Text style={styles.tableCol3}>{formatCurrency(taxResult.hecsRepayment)}</Text>
               </View>
             )}
           </View>
