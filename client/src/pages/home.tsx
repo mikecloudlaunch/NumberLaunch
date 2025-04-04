@@ -41,26 +41,8 @@ const Home: React.FC = () => {
             </div>
           </div>
           
-          {/* Enhanced Space-themed decoration - Shooting Stars */}
+          {/* Space-themed decoration - Quote */}
           <div className="mt-16 sm:mt-24 relative h-24 md:h-32 flex items-center justify-center">
-            {/* Animated shooting stars */}
-            <div className="absolute w-full h-full overflow-hidden">
-              {[...Array(3)].map((_, i) => (
-                <div
-                  key={i}
-                  className="absolute h-px bg-gradient-to-r from-transparent via-white to-transparent"
-                  style={{
-                    top: `${Math.random() * 100}%`,
-                    left: '-100px',
-                    width: `${Math.random() * 150 + 50}px`,
-                    opacity: Math.random() * 0.8 + 0.2,
-                    transform: `rotate(${Math.random() * 20 - 10}deg)`,
-                    animation: `shooting-star ${Math.random() * 8 + 12}s linear ${Math.random() * 10 + 10}s infinite`
-                  }}
-                />
-              ))}
-            </div>
-            
             {/* Glowing text */}
             <p className="text-xl md:text-2xl text-center text-gray-200 font-space relative z-10 px-4 italic">
               "Your financial future starts with <span className="text-primary-400 font-bold animate-pulse">clarity</span>"
