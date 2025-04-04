@@ -18,7 +18,7 @@ async function verifyRecaptcha(token: string): Promise<boolean> {
       body: `secret=${recaptchaSecret}&response=${token}`,
     });
 
-    const data = await response.json();
+    const data = await response.json() as { success: boolean };
     return data.success === true;
   } catch (error) {
     console.error('reCAPTCHA verification error:', error);
