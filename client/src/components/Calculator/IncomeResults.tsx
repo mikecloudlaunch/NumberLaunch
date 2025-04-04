@@ -101,9 +101,9 @@ const IncomeResults: React.FC<IncomeResultsProps> = ({ taxResult }) => {
         {/* Mobile PDF Button */}
         <div className="block sm:hidden">
           <Button 
-            variant="secondary" 
+            variant="default" 
             size="default" 
-            className="w-full"
+            className="w-full bg-primary-600 hover:bg-primary-700 text-white"
           >
             <FileText className="w-4 h-4 mr-2" />
             Save PDF
