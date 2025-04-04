@@ -206,8 +206,22 @@ const Home: React.FC = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <h2 className="text-3xl font-bold font-space mb-4">Ready to calculate your income?</h2>
           <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">Get a clear picture of your finances with our advanced Australian income calculator.</p>
-          <Link href="/calculator#top">
-            <Button size="lg" variant="outline" className="bg-transparent border-2 border-primary-400 text-white hover:bg-primary-800/40 hover:text-white hover:border-primary-300 transition-all duration-300 transform hover:scale-105 hover:shadow-glow">
+          <Link href="/calculator">
+            <Button 
+              size="lg" 
+              variant="outline" 
+              className="bg-transparent border-2 border-primary-400 text-white hover:bg-primary-800/40 hover:text-white hover:border-primary-300 transition-all duration-300 transform hover:scale-105 hover:shadow-glow"
+              onClick={() => {
+                // The Link component will handle navigation
+                // We'll scroll to top after page loads
+                setTimeout(() => {
+                  window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                  });
+                }, 100);
+              }}
+            >
               <Calculator className="mr-2 h-5 w-5" />
               Start Calculating
             </Button>

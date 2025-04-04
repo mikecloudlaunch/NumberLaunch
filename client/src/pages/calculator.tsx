@@ -86,15 +86,20 @@ const Calculator: React.FC = () => {
           
           {/* Back to Top Button */}
           <div className="flex justify-center mt-8">
-            <a 
-              href="#top" 
-              className="text-white bg-secondary hover:bg-secondary-600 transition-colors px-6 py-2 rounded-full inline-flex items-center"
+            <button 
+              onClick={() => {
+                window.scrollTo({
+                  top: 0,
+                  behavior: 'smooth'
+                });
+              }}
+              className="text-white bg-secondary hover:bg-secondary-600 transition-all duration-300 transform hover:scale-105 px-6 py-2 rounded-full inline-flex items-center shadow-md hover:shadow-lg"
             >
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clipRule="evenodd" />
               </svg>
               Back to Top
-            </a>
+            </button>
           </div>
         </div>
       </section>
