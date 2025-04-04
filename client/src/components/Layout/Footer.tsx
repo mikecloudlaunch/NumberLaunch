@@ -13,7 +13,7 @@ const Footer: React.FC = () => {
               <Logo className="mb-4" />
             </Link>
             <p className="text-gray-400 mb-4 max-w-md">
-              Crafted by Cloud Launch — delivering clarity with a lift. Our space-themed financial tools help Australian taxpayers make confident decisions.
+              Crafted by <a href="https://cloudlaunch.au" target="_blank" rel="noopener noreferrer" className="text-primary-400 hover:text-primary-300 transition-colors">Cloud Launch</a> — delivering clarity with a lift. Our space-themed financial tools help Australian taxpayers make confident decisions.
             </p>
             <div className="flex space-x-4">
               <a href="https://ko-fi.com/mikecloudlaunch" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#29abe0] hover:bg-white transition-colors duration-200 flex items-center rounded-md px-3 py-2 border border-gray-700 hover:border-[#29abe0]" aria-label="Support on Ko-fi">
@@ -36,13 +36,13 @@ const Footer: React.FC = () => {
                 <a href="#features" className="hover:text-white transition-colors duration-200">Features</a>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors duration-200">About Us</a>
+                <Link href="/about" className="hover:text-white transition-colors duration-200">About Us</Link>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors duration-200">Privacy Policy</a>
+                <Link href="/privacy" className="hover:text-white transition-colors duration-200">Privacy Policy</Link>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors duration-200">Terms of Service</a>
+                <Link href="/terms" className="hover:text-white transition-colors duration-200">Terms of Service</Link>
               </li>
             </ul>
           </div>
@@ -79,7 +79,7 @@ const Footer: React.FC = () => {
         </div>
         
         <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400 text-sm">
-          <p>&copy; {new Date().getFullYear()} NumberLaunch by Cloud Launch. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} NumberLaunch by <a href="https://cloudlaunch.au" target="_blank" rel="noopener noreferrer" className="text-primary-400 hover:text-primary-300 transition-colors">Cloud Launch</a>. All rights reserved.</p>
           <p className="mt-2">Disclaimer: This calculator provides estimates only and should not be considered financial advice.</p>
         </div>
       </div>

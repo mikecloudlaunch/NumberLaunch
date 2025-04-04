@@ -28,7 +28,10 @@ const Home: React.FC = () => {
                   Calculate Now — Fast, Accurate, Effortless
                 </Button>
               </Link>
-              <Link href="#features">
+              <a href="#features" onClick={(e) => {
+                e.preventDefault();
+                document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
+              }}>
                 <Button 
                   size="lg" 
                   variant="secondary" 
@@ -37,7 +40,7 @@ const Home: React.FC = () => {
                   <Info className="mr-2 h-5 w-5" />
                   Learn More
                 </Button>
-              </Link>
+              </a>
             </div>
           </div>
           

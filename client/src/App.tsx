@@ -6,6 +6,9 @@ import { useState, useEffect } from "react";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
 import Calculator from "@/pages/calculator";
+import About from "@/pages/about";
+import Privacy from "@/pages/privacy";
+import Terms from "@/pages/terms";
 import Layout from "@/components/Layout/Layout";
 
 function Router() {
@@ -23,6 +26,9 @@ function Router() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/calculator" component={Calculator} />
+      <Route path="/about" component={About} />
+      <Route path="/privacy" component={Privacy} />
+      <Route path="/terms" component={Terms} />
       <Route component={NotFound} />
     </Switch>
   );
