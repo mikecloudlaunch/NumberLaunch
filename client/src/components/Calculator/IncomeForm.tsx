@@ -167,7 +167,10 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ onCalculate, taxResult }) => {
                           <Input
                             type="number"
                             className="pr-12"
-                            onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
+                            onChange={(e) => {
+                              // For super rate, always use number value (0 is important to show)
+                              field.onChange(parseFloat(e.target.value) || 0);
+                            }}
                             value={field.value}
                             min={0}
                             max={100}
@@ -208,8 +211,15 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ onCalculate, taxResult }) => {
                       <Input
                         type="number"
                         className="pl-10 pr-12"
-                        onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
-                        value={field.value}
+                        onChange={(e) => {
+                          // If input is empty, allow it to remain empty (for backspacing)
+                          if (e.target.value === '') {
+                            field.onChange('');
+                          } else {
+                            field.onChange(parseFloat(e.target.value) || 0);
+                          }
+                        }}
+                        value={field.value === 0 ? '' : field.value}
                         min={0}
                       />
                       <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
@@ -241,8 +251,15 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ onCalculate, taxResult }) => {
                       <Input
                         type="number"
                         className="pl-10 pr-12"
-                        onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
-                        value={field.value}
+                        onChange={(e) => {
+                          // If input is empty, allow it to remain empty (for backspacing)
+                          if (e.target.value === '') {
+                            field.onChange('');
+                          } else {
+                            field.onChange(parseFloat(e.target.value) || 0);
+                          }
+                        }}
+                        value={field.value === 0 ? '' : field.value}
                         min={0}
                       />
                       <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
@@ -294,8 +311,15 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ onCalculate, taxResult }) => {
                           <Input
                             type="number"
                             className="pl-10 pr-12"
-                            onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
-                            value={field.value}
+                            onChange={(e) => {
+                              // If input is empty, allow it to remain empty (for backspacing)
+                              if (e.target.value === '') {
+                                field.onChange('');
+                              } else {
+                                field.onChange(parseFloat(e.target.value) || 0);
+                              }
+                            }}
+                            value={field.value === 0 ? '' : field.value}
                             min={0}
                           />
                           <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
