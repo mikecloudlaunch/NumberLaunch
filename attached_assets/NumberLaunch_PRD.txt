@@ -1,0 +1,134 @@
+# NumberLaunch - Product Requirements Document
+
+## Overview
+**NumberLaunch** is an advanced income calculator web application designed for Australian taxpayers. Built under the space-themed Cloud Launch brand, it offers clean, professional financial insights wrapped in a sleek, futuristic interface. NumberLaunch simplifies income and deduction calculations while incorporating visual breakdowns and powerful reporting tools. The platform is scalable, tech-agnostic, and optimized for future financial planning expansions.
+
+## Target Audience
+- Australian taxpayers (individuals)
+- Financial planners and accountants
+- Small business owners
+- Students with HECS/HELP debt
+- Anyone looking to understand their income structure and take-home pay
+
+## Business Objectives
+1. Deliver a user-friendly, space-themed income calculator with a professional feel
+2. Help users understand income distribution across deductions, taxes, super, and net pay
+3. Offer visually engaging insights and PDF summaries
+4. Build a future-ready platform that can expand into broader financial tools
+5. Ensure clear separation of features into accessible pages for improved UX
+
+## Key Features
+
+### Core Income Calculator
+- **Gross Income Input**
+- **Superannuation Handling** (Default 11%, or custom override)
+- **Tax Deductions** (e.g., work-related expenses)
+- **HECS/HELP Support**
+- **Instant Results, No Page Reload**
+- **Detailed Tax Breakdown** (Income tax, Medicare, HECS)
+- **Net Income Summary** (Monthly + Annual)
+- **Reset Button**: Fully clears all input fields and returns the calculator to its default state
+
+### Visualizations
+- **Income Distribution Charts**
+- **Progressive Tax Rate Visualization**
+- **Interactive Hover & Click Tooltips**
+
+### Advanced Reporting
+- **PDF Report Generator**
+- **Formatted to Fit on One Page When Possible**
+- **Styled With NumberLaunch Branding** (logo, color palette)
+- **Two-column Layout**
+- **Visual Indicators and Breakdown Bars**
+- **Clear Section Headers & Totals**
+- **Legal Disclaimer Section**
+
+### User Experience
+- **Mobile-First, Fully Responsive UI**
+- **Light/Dark Mode + System Preference Detection**
+- **Robust Dark Mode Toggle** (saved per user/session)
+- **Guided Inputs with Validation & Tooltips**
+- **Reset/Start Over Option Clears All Fields**
+- **Smooth Loading States + Error Handling**
+
+### Website Structure
+- **Dedicated Home Page** with general information, branding, feature explanations, and FAQs
+- **Separate Calculator Page** to focus user attention on data entry and calculation
+- **Meta Data**: All pages must include complete SEO-friendly meta tags (title, description, canonical, Open Graph, Twitter metadata)
+
+### Technical Blueprint (for Developer or AI Agent Reference)
+
+#### Functional Scope:
+- A single-page web application (SPA) with two main routes: `/` (Home page) and `/calculator` (Tax calculator)
+- Calculator page will accept user input and instantly return calculations and visual feedback using JavaScript logic in-browser (no full page reloads)
+- Optional backend API to enable persistence (Phase 2+)
+
+#### Tech Stack (Preferred, but Tech-Agnostic):
+##### Frontend
+- React (with TypeScript)
+- Tailwind CSS for utility-based styling
+- State/data: React Hook Form + Zod (form validation), TanStack Query (data management)
+- Charting: Recharts for bar/pie visualizations
+- Routing: Wouter (minimalist React router)
+- Theming: Custom Tailwind + dark mode toggle (via localStorage + prefers-color-scheme)
+- Icons: Lucide React
+- PDF generation: React-PDF (custom template, styled using Tailwind CSS-compatible classes)
+
+##### Backend (Optional)
+- Node.js + Express
+- PostgreSQL (via Drizzle ORM)
+- REST API endpoints for saving calculations and managing users (e.g., `POST /calculate`, `GET /profile`, etc.)
+- Auth via Passport.js (planned)
+- All API input to be validated with Zod schemas
+
+#### Folder Structure Example (Frontend)
+```
+/src
+├── components          # Reusable UI components (Buttons, Cards, etc.)
+├── features
+│   ├── calculator      # Calculator-specific logic & components
+│   ├── report          # PDF generation logic
+│   └── home            # Homepage components
+├── hooks               # Custom React hooks
+├── services            # External API integrations or util functions
+├── styles              # Global theme + Tailwind config
+├── utils               # Formatters, constants, helpers
+├── types               # Shared TypeScript types
+└── app.tsx             # App entry point
+```
+
+#### Calculator Logic Requirements:
+- Superannuation must default to 11%, editable by user
+- HECS repayment calculated based on income brackets (ATO accurate)
+- Income tax: apply progressive bracket calculations
+- Medicare levy added (2%) if income is above threshold
+- Net income = gross - tax - HECS - Medicare + super (or without)
+- Reset button must clear all fields and state
+- PDF output to be legible, properly branded, and ideally printable on one page
+
+#### Metadata Requirements
+- Include full meta tags for SEO and social:
+  - `title`, `description`, `canonical`
+  - Open Graph: `og:title`, `og:image`, `og:description`
+  - Twitter Cards: `twitter:card`, `twitter:title`, etc.
+
+#### Theming & Branding
+- Follows NumberLaunch color system and design tokens
+- Typography: Inter or Space Grotesk
+- Layout: card-based, accessible, responsive grid
+- Mobile-first with sticky CTA bar for calculator actions
+
+#### PDF Template Rules
+- Use branding header (NumberLaunch logo and theme colors)
+- Show gross, net, and deduction summary with distribution bar
+- Footer contains disclaimer and generation date
+- Prioritize clarity: two-column if content fits, or stacked if overflow
+
+---
+
+### Example Copy (For Marketing Site Reference)
+**Headline**: "Clear Numbers. Confident Decisions."
+**Subheadline**: "NumberLaunch is your intelligent income calculator designed to make sense of complex earnings and deductions — all in a sleek, modern interface."
+**CTA**: "Calculate Now — Fast, Accurate, Effortless"
+**Feature Callout**: "Built with precision. Backed by data."
+**Footer Copy**: "Crafted by Cloud Launch — delivering clarity with a lift."
