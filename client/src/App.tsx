@@ -26,54 +26,21 @@ function Router() {
 }
 
 function App() {
-  const [theme, setTheme] = useState<"dark" | "light" | null>(null);
+  // Always set theme to dark
+  const [theme] = useState<"dark">("dark");
 
   useEffect(() => {
-    // Check for saved theme preference or prefer-color-scheme
-    const userPreference = localStorage.getItem('theme') as "dark" | "light" | null;
-    const systemPreference = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    // Force dark mode
+    document.documentElement.classList.add('dark');
     
-    // Apply the theme
-    const themeToApply = userPreference || systemPreference;
-    setTheme(themeToApply);
-    
-    if (themeToApply === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-    
-    // Listen for changes in system preference
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleChange = (e: MediaQueryListEvent) => {
-      if (!localStorage.getItem('theme')) {
-        setTheme(e.matches ? 'dark' : 'light');
-        if (e.matches) {
-          document.documentElement.classList.add('dark');
-        } else {
-          document.documentElement.classList.remove('dark');
-        }
-      }
-    };
-    
-    mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
+    // Save to localStorage to persist across sessions
+    localStorage.setItem('theme', 'dark');
   }, []);
 
+  // Dummy toggle function that does nothing (we'll keep dark mode always)
   const toggleTheme = () => {
-    const newTheme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
-    localStorage.setItem('theme', newTheme);
-    
-    if (newTheme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
+    // No-op function
   };
-
-  // Don't render until we've determined the theme
-  if (theme === null) return null;
 
   return (
     <QueryClientProvider client={queryClient}>

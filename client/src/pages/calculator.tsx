@@ -56,15 +56,16 @@ const Calculator: React.FC = () => {
       </section>
       
       {/* PDF Preview Section */}
-      <section className="py-16 bg-white dark:bg-cosmic-dark">
+      <section className="py-16 bg-gray-900">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold font-space text-gray-900 dark:text-white mb-4">Detailed PDF Reports</h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            <h2 className="text-3xl font-bold font-space text-white mb-4">Detailed PDF Reports</h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
               Generate professional PDF reports to save, print, or share your calculations.
             </p>
           </div>
           
+          {/* We'll keep the PDF viewer for now */}
           <div className="flex justify-center">
             <div className="w-full max-w-4xl transform scale-90 origin-top bg-white shadow-2xl rounded overflow-hidden">
               <PDFViewer className="w-full h-[800px]">

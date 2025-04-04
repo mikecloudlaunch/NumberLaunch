@@ -127,28 +127,45 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ onCalculate, taxResult }) => {
               name="superRate"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="flex items-center">
-                    Superannuation Rate
-                    <span className="inline-flex items-center justify-center ml-1 w-4 h-4 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs cursor-help" title="Default employer contribution rate is 11%">?</span>
-                  </FormLabel>
-                  <FormControl>
-                    <div className="relative">
-                      <Input
-                        type="number"
-                        className="pr-12"
-                        onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
-                        value={field.value}
-                        min={0}
-                        max={100}
+                  <div className="flex items-center justify-between mb-2">
+                    <FormLabel className="flex items-center">
+                      Custom Superannuation Rate
+                      <span className="inline-flex items-center justify-center ml-1 w-4 h-4 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs cursor-help" title="Toggle to set your own super contribution rate">?</span>
+                    </FormLabel>
+                    <FormControl>
+                      <Switch
+                        checked={field.value !== 11}
+                        onCheckedChange={(checked) => {
+                          if (!checked) {
+                            field.onChange(11); // Default super rate
+                          }
+                        }}
                       />
-                      <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
-                        <span className="text-gray-500 dark:text-gray-400 sm:text-sm">%</span>
-                      </div>
+                    </FormControl>
+                  </div>
+                  
+                  {field.value !== 11 && (
+                    <div className="mt-2">
+                      <FormControl>
+                        <div className="relative">
+                          <Input
+                            type="number"
+                            className="pr-12"
+                            onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
+                            value={field.value}
+                            min={0}
+                            max={100}
+                          />
+                          <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
+                            <span className="text-gray-500 dark:text-gray-400 sm:text-sm">%</span>
+                          </div>
+                        </div>
+                      </FormControl>
+                      <FormDescription className="text-red-500">
+                        {form.formState.errors.superRate?.message}
+                      </FormDescription>
                     </div>
-                  </FormControl>
-                  <FormDescription className="text-red-500">
-                    {form.formState.errors.superRate?.message}
-                  </FormDescription>
+                  )}
                 </FormItem>
               )}
             />

@@ -72,9 +72,7 @@ const Footer: React.FC = () => {
                   HECS/HELP Info
                 </a>
               </li>
-              <li>
-                <a href="#" className="hover:text-white transition-colors duration-200">Financial Planning</a>
-              </li>
+
               <li>
                 <a href="#" className="hover:text-white transition-colors duration-200">Contact Support</a>
               </li>
