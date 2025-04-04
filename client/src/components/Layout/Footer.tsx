@@ -9,10 +9,8 @@ const Footer: React.FC = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="md:col-span-2">
-            <Link href="/">
-              <a>
-                <Logo className="mb-4" />
-              </a>
+            <Link href="/" className="inline-block">
+              <Logo className="mb-4" />
             </Link>
             <p className="text-gray-400 mb-4 max-w-md">
               Crafted by Cloud Launch — delivering clarity with a lift. Our space-themed financial tools help Australian taxpayers make confident decisions.
