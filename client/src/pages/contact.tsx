@@ -1,19 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { MailIcon, SendIcon, CheckCircle } from 'lucide-react';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 export default function Contact() {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [captchaVerified, setCaptchaVerified] = useState(false);
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     subject: '',
-    message: ''
+    message: '',
+    captchaToken: ''
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -23,9 +27,42 @@ export default function Contact() {
       [name]: value
     }));
   };
+  
+  const handleCaptchaChange = (token: string | null) => {
+    if (token) {
+      setCaptchaVerified(true);
+      setFormData(prev => ({
+        ...prev,
+        captchaToken: token
+      }));
+    } else {
+      setCaptchaVerified(false);
+      setFormData(prev => ({
+        ...prev,
+        captchaToken: ''
+      }));
+    }
+  };
+  
+  const resetCaptcha = () => {
+    if (recaptchaRef.current) {
+      recaptchaRef.current.reset();
+    }
+    setCaptchaVerified(false);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!captchaVerified) {
+      toast({
+        title: "CAPTCHA required",
+        description: "Please complete the CAPTCHA verification before sending your message.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     setIsSubmitting(true);
     
     try {
@@ -54,11 +91,14 @@ export default function Contact() {
             name: '',
             email: '',
             subject: '',
-            message: ''
+            message: '',
+            captchaToken: ''
           });
+          resetCaptcha();
           setIsSuccess(false);
         }, 3000);
       } else {
+        resetCaptcha();
         toast({
           title: "Failed to send message",
           description: result.message || "Please try again later.",
@@ -67,6 +107,7 @@ export default function Contact() {
       }
     } catch (error) {
       console.error("Error sending message:", error);
+      resetCaptcha();
       toast({
         title: "Error",
         description: "There was a problem sending your message. Please try again.",
@@ -162,11 +203,28 @@ export default function Contact() {
                     />
                   </div>
                   
+                  <div className="mt-4 mb-2">
+                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300 block mb-2">
+                      Security Verification
+                    </label>
+                    <div className="flex justify-center md:justify-start">
+                      <ReCAPTCHA
+                        ref={recaptchaRef}
+                        sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" // This is Google's test key for development
+                        onChange={handleCaptchaChange}
+                        theme="dark"
+                      />
+                    </div>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+                      Please complete the security verification to send your message.
+                    </p>
+                  </div>
+                  
                   <div className="flex justify-end">
                     <Button 
                       type="submit"
                       className="bg-primary hover:bg-primary-600 text-white px-6 py-3 rounded-md flex items-center transition-all transform hover:scale-105 shadow-md hover:shadow-lg"
-                      disabled={isSubmitting}
+                      disabled={isSubmitting || !captchaVerified}
                     >
                       {isSubmitting ? (
                         <>

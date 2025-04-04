@@ -4,6 +4,27 @@ import { storage } from "./storage";
 import { insertTaxCalculationSchema } from "@shared/schema";
 import { z } from "zod";
 import { emailSchema, sendEmail, initMailService } from "./email";
+import fetch from "node-fetch";
+
+// Verify reCAPTCHA token
+async function verifyRecaptcha(token: string): Promise<boolean> {
+  try {
+    const recaptchaSecret = process.env.RECAPTCHA_SECRET_KEY || '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe'; // This is Google's test secret key
+    const response = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: `secret=${recaptchaSecret}&response=${token}`,
+    });
+
+    const data = await response.json();
+    return data.success === true;
+  } catch (error) {
+    console.error('reCAPTCHA verification error:', error);
+    return false;
+  }
+}
 
 export async function registerRoutes(app: Express): Promise<Server> {
   // API routes for NumberLaunch application
@@ -215,6 +236,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
           success: false,
           message: "Invalid contact form data",
           errors: validationResult.error.errors
+        });
+      }
+      
+      // Verify reCAPTCHA token
+      const { captchaToken } = validationResult.data;
+      if (!captchaToken) {
+        return res.status(400).json({
+          success: false,
+          message: "CAPTCHA verification failed - token missing"
+        });
+      }
+      
+      const isValidCaptcha = await verifyRecaptcha(captchaToken);
+      if (!isValidCaptcha) {
+        return res.status(400).json({
+          success: false,
+          message: "CAPTCHA verification failed - please try again"
         });
       }
       
