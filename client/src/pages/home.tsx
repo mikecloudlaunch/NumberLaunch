@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'wouter';
-import { Calculator, Info } from 'lucide-react';
+import { Calculator } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import SpaceBg from '@/components/SpaceBg';
 import FAQSection from '@/components/FAQ/FAQSection';
@@ -18,7 +18,7 @@ const Home: React.FC = () => {
             <p className="text-xl md:text-2xl text-gray-300 mb-10 max-w-3xl mx-auto">
               NumberLaunch is your intelligent income calculator designed to make sense of complex earnings and deductions — all in a sleek, modern interface.
             </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-4">
+            <div className="flex justify-center">
               <Link href="/calculator">
                 <Button 
                   size="lg" 
@@ -28,19 +28,6 @@ const Home: React.FC = () => {
                   Calculate Now — Fast, Accurate, Effortless
                 </Button>
               </Link>
-              <a href="#features" onClick={(e) => {
-                e.preventDefault();
-                document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
-              }}>
-                <Button 
-                  size="lg" 
-                  variant="secondary" 
-                  className="bg-indigo-600 hover:bg-indigo-500 text-white border-2 border-indigo-400 hover:border-indigo-300 shadow-lg hover:shadow-indigo-500/40 transition-all duration-300 transform hover:scale-105 font-medium"
-                >
-                  <Info className="mr-2 h-5 w-5" />
-                  Learn More
-                </Button>
-              </a>
             </div>
           </div>
           
