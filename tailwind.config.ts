@@ -79,10 +79,25 @@ export default {
             height: "0",
           },
         },
+        "pulse": {
+          "0%": {
+            opacity: "0.4",
+            transform: "scale(1)",
+          },
+          "100%": {
+            opacity: "1",
+            transform: "scale(1.05)",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "pulse": "pulse 3s ease-in-out infinite alternate",
+      },
+      boxShadow: {
+        'glow': '0 0 15px 2px rgba(56, 189, 248, 0.3), 0 0 30px 4px rgba(56, 182, 255, 0.1)',
+        'cosmic': '0 10px 25px -5px rgba(59, 130, 246, 0.1), 0 8px 10px -6px rgba(147, 51, 234, 0.1)',
       },
     },
   },

@@ -317,7 +317,7 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ onCalculate, taxResult }) => {
                   className="w-full sm:w-auto border-primary-600 text-primary-400"
                 >
                   <FileText className="mr-2 h-4 w-4" />
-                  Generate PDF
+                  Save PDF
                 </Button>
               )}
             </div>

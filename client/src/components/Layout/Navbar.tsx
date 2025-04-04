@@ -29,10 +29,10 @@ const Navbar: React.FC<NavbarProps> = () => {
           <div className="flex items-center">
             {/* Desktop Navigation */}
             <nav className="hidden md:flex space-x-6">
-              <Link href="/" className="text-gray-300 hover:text-primary-400 font-medium">
+              <Link href="/#top" className="text-gray-300 hover:text-primary-400 font-medium transition-colors duration-200">
                 Home
               </Link>
-              <Link href="/calculator" className="text-gray-300 hover:text-primary-400 font-medium">
+              <Link href="/calculator#top" className="text-gray-300 hover:text-primary-400 font-medium transition-colors duration-200">
                 Calculator
               </Link>
             </nav>
@@ -52,10 +52,10 @@ const Navbar: React.FC<NavbarProps> = () => {
       {/* Mobile Navigation Menu */}
       <div className={`md:hidden ${mobileMenuOpen ? 'block' : 'hidden'} bg-gray-900 border-b border-gray-800`}>
         <div className="container mx-auto px-4 py-3 space-y-3">
-          <Link href="/" className="block px-3 py-2 rounded-md text-gray-300 font-medium hover:bg-gray-800">
+          <Link href="/#top" className="block px-3 py-2 rounded-md text-gray-300 font-medium hover:bg-gray-800 hover:text-primary-400 transition-colors duration-200" onClick={() => setMobileMenuOpen(false)}>
             Home
           </Link>
-          <Link href="/calculator" className="block px-3 py-2 rounded-md text-gray-300 font-medium hover:bg-gray-800">
+          <Link href="/calculator#top" className="block px-3 py-2 rounded-md text-gray-300 font-medium hover:bg-gray-800 hover:text-primary-400 transition-colors duration-200" onClick={() => setMobileMenuOpen(false)}>
             Calculator
           </Link>
         </div>

@@ -41,7 +41,7 @@ const IncomeResults: React.FC<IncomeResultsProps> = ({ taxResult }) => {
             className="hidden sm:block"
           >
             <FileText className="w-4 h-4 mr-2" />
-            Download PDF Report
+            Save PDF
           </Button>
         </div>
       </div>
@@ -106,7 +106,7 @@ const IncomeResults: React.FC<IncomeResultsProps> = ({ taxResult }) => {
             className="w-full"
           >
             <FileText className="w-4 h-4 mr-2" />
-            Download PDF Report
+            Save PDF
           </Button>
         </div>
       </div>
