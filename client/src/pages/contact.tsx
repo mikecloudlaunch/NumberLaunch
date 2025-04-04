@@ -208,7 +208,13 @@ export default function Contact() {
                       Security Verification
                     </label>
                     <div className="flex justify-center md:justify-start">
-                      {/* Always use Google's official test key for local development */}
+                      {/* 
+                        For Production: Replace with your real reCAPTCHA key and make sure to add your domain
+                        to the list of allowed domains in Google reCAPTCHA admin console.
+                        
+                        You can use environment variables like this:
+                        sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY || "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"}
+                      */}
                       <ReCAPTCHA
                         ref={recaptchaRef}
                         sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" // Google's official test key
