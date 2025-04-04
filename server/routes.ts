@@ -9,7 +9,7 @@ import fetch from "node-fetch";
 // Verify reCAPTCHA token
 async function verifyRecaptcha(token: string): Promise<boolean> {
   try {
-    const recaptchaSecret = process.env.RECAPTCHA_SECRET_KEY || '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe'; // This is Google's test secret key
+    const recaptchaSecret = process.env.RECAPTCHA_SECRET_KEY || '6LfNPQorAAAAAHj3FqR5ihXtCPt4WQCeKoJAHKF8'; // This is Google's test secret key
     const response = await fetch('https://www.google.com/recaptcha/api/siteverify', {
       method: 'POST',
       headers: {
