@@ -42,7 +42,7 @@ const IncomeResults: React.FC<IncomeResultsProps> = ({ taxResult }) => {
                 inputs={formInputs}
               />
             }
-            fileName={`NumberLaunch-TaxReport-${new Date().toISOString().split('T')[0]}.pdf`}
+            fileName={`NumberLaunch-Report-${new Date().toISOString().split('T')[0]}.pdf`}
             className="hidden sm:block"
           >
             {({ loading }) => (
@@ -124,7 +124,7 @@ const IncomeResults: React.FC<IncomeResultsProps> = ({ taxResult }) => {
                 inputs={formInputs}
               />
             }
-            fileName={`NumberLaunch-TaxReport-${new Date().toISOString().split('T')[0]}.pdf`}
+            fileName={`NumberLaunch-Report-${new Date().toISOString().split('T')[0]}.pdf`}
             className="w-full"
           >
             {({ loading }) => (
