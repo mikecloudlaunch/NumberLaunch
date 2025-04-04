@@ -38,9 +38,9 @@ const IncomeResults: React.FC<IncomeResultsProps> = ({ taxResult }) => {
           <Button 
             variant="secondary" 
             size="sm" 
-            className="hidden sm:block"
+            className="hidden sm:flex items-center gap-1 bg-primary-600 text-white hover:bg-primary-700 px-3 py-1 rounded-md"
           >
-            <FileText className="w-4 h-4 mr-2" />
+            <FileText className="w-4 h-4" />
             Save PDF
           </Button>
         </div>
