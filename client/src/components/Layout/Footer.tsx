@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'wouter';
-import { Twitter, Facebook, Instagram, Linkedin } from 'lucide-react';
+import { Coffee } from 'lucide-react';
 import Logo from '@/components/Logo';
 
 const Footer: React.FC = () => {
@@ -18,21 +18,9 @@ const Footer: React.FC = () => {
               Crafted by Cloud Launch — delivering clarity with a lift. Our space-themed financial tools help Australian taxpayers make confident decisions.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200" aria-label="Twitter">
-                <Twitter />
-                <span className="sr-only">Twitter</span>
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200" aria-label="Facebook">
-                <Facebook />
-                <span className="sr-only">Facebook</span>
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200" aria-label="Instagram">
-                <Instagram />
-                <span className="sr-only">Instagram</span>
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200" aria-label="LinkedIn">
-                <Linkedin />
-                <span className="sr-only">LinkedIn</span>
+              <a href="https://ko-fi.com/mikecloudlaunch" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#29abe0] hover:bg-white transition-colors duration-200 flex items-center rounded-md px-3 py-2 border border-gray-700 hover:border-[#29abe0]" aria-label="Support on Ko-fi">
+                <Coffee className="mr-2 h-5 w-5" />
+                <span>Support on Ko-fi</span>
               </a>
             </div>
           </div>
@@ -41,14 +29,10 @@ const Footer: React.FC = () => {
             <h3 className="text-lg font-space font-medium text-white mb-4">Quick Links</h3>
             <ul className="space-y-2 text-gray-400">
               <li>
-                <Link href="/">
-                  <a className="hover:text-white transition-colors duration-200">Home</a>
-                </Link>
+                <Link href="/" className="hover:text-white transition-colors duration-200">Home</Link>
               </li>
               <li>
-                <Link href="/calculator">
-                  <a className="hover:text-white transition-colors duration-200">Calculator</a>
-                </Link>
+                <Link href="/calculator" className="hover:text-white transition-colors duration-200">Calculator</Link>
               </li>
               <li>
                 <a href="#features" className="hover:text-white transition-colors duration-200">Features</a>

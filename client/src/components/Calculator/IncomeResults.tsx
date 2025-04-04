@@ -1,22 +1,57 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TaxResult, formatCurrency, formatPercentage } from '@/lib/tax-calculator';
 import DataCard from '@/components/ui/data-card';
-import { Wallet, Landmark, PiggyBank, GraduationCap } from 'lucide-react';
+import { Wallet, Landmark, PiggyBank, GraduationCap, FileText } from 'lucide-react';
 import IncomeDistributionChart from './Charts/IncomeDistributionChart';
 import TaxBracketChart from './Charts/TaxBracketChart';
 import TaxBreakdownTable from './TaxBreakdownTable';
+import { Button } from '@/components/ui/button';
+import IncomeAnalysisPDF from '@/components/ui/pdf-document';
+import { PDFDownloadLink } from '@react-pdf/renderer';
 
 interface IncomeResultsProps {
   taxResult: TaxResult;
 }
 
 const IncomeResults: React.FC<IncomeResultsProps> = ({ taxResult }) => {
+  // Extract form inputs for the PDF document
+  const formInputs = {
+    grossIncome: taxResult.grossIncome,
+    superRate: (taxResult.superannuation / taxResult.grossIncome) * 100,
+    taxDeductions: taxResult.grossIncome - taxResult.taxableIncome,
+    hasHecsHelp: taxResult.hecsRepayment > 0,
+    hecsDebtTotal: 0, // This is not stored in the tax result, default to 0
+  };
+  
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
       {/* Results Header */}
       <div className="bg-gradient-to-r from-primary-600 to-secondary-600 p-6 text-white">
-        <h3 className="text-2xl font-bold font-space">Your Income Breakdown</h3>
-        <p className="text-primary-100">Based on {formatCurrency(taxResult.grossIncome)} annual gross income</p>
+        <div className="flex justify-between items-center">
+          <div>
+            <h3 className="text-2xl font-bold font-space">Your Income Breakdown</h3>
+            <p className="text-primary-100">Based on {formatCurrency(taxResult.grossIncome)} annual gross income</p>
+          </div>
+          
+          {/* Generate PDF Button */}
+          <PDFDownloadLink 
+            document={<IncomeAnalysisPDF taxResult={taxResult} inputs={formInputs} />}
+            fileName={`income-analysis-${new Date().getTime()}.pdf`}
+            className="hidden sm:block"
+          >
+            {({ blob, url, loading, error }) => (
+              <Button 
+                variant="secondary" 
+                size="sm" 
+                className="bg-white text-primary-700 hover:bg-gray-50"
+                disabled={loading}
+              >
+                <FileText className="w-4 h-4 mr-2" />
+                {loading ? 'Generating PDF...' : 'Download PDF Report'}
+              </Button>
+            )}
+          </PDFDownloadLink>
+        </div>
       </div>
       
       <div className="p-6 sm:p-8 space-y-8">
@@ -70,6 +105,27 @@ const IncomeResults: React.FC<IncomeResultsProps> = ({ taxResult }) => {
           taxableIncome={taxResult.taxableIncome} 
           marginalRate={taxResult.marginalTaxRate} 
         />
+        
+        {/* Mobile PDF Button */}
+        <div className="block sm:hidden">
+          <PDFDownloadLink 
+            document={<IncomeAnalysisPDF taxResult={taxResult} inputs={formInputs} />}
+            fileName={`income-analysis-${new Date().getTime()}.pdf`}
+            className="w-full"
+          >
+            {({ blob, url, loading, error }) => (
+              <Button 
+                variant="secondary" 
+                size="default" 
+                className="w-full"
+                disabled={loading}
+              >
+                <FileText className="w-4 h-4 mr-2" />
+                {loading ? 'Generating PDF...' : 'Download PDF Report'}
+              </Button>
+            )}
+          </PDFDownloadLink>
+        </div>
       </div>
     </div>
   );

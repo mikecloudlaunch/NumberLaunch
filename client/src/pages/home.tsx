@@ -9,11 +9,11 @@ const Home: React.FC = () => {
   return (
     <>
       {/* Hero Section */}
-      <SpaceBg className="bg-gradient-to-b from-white to-gray-50 dark:from-cosmic-dark dark:to-gray-900">
+      <SpaceBg className="bg-gradient-to-b from-white to-gray-100 dark:from-gray-900 dark:to-black">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="font-space text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6">
-              Clear Numbers. <span className="text-primary-600 dark:text-primary-500">Confident Decisions.</span>
+              Clear Numbers. <span className="text-primary-600 dark:text-primary-400">Confident Decisions.</span>
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-10 max-w-3xl mx-auto">
               NumberLaunch is your intelligent income calculator designed to make sense of complex earnings and deductions — all in a sleek, modern interface.
@@ -52,7 +52,7 @@ const Home: React.FC = () => {
       </SpaceBg>
       
       {/* Features Section */}
-      <section id="features" className="py-16 bg-white dark:bg-cosmic-dark">
+      <section id="features" className="py-16 bg-white dark:bg-gray-900">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl font-bold font-space text-gray-900 dark:text-white mb-4">Built with precision. Backed by data.</h2>

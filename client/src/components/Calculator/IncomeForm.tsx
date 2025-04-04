@@ -109,7 +109,6 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ onCalculate, taxResult }) => {
                         onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
                         value={field.value}
                         min={0}
-                        step={1000}
                       />
                       <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
                         <span className="text-gray-500 dark:text-gray-400 sm:text-sm">AUD</span>
@@ -141,7 +140,6 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ onCalculate, taxResult }) => {
                         value={field.value}
                         min={0}
                         max={100}
-                        step={0.5}
                       />
                       <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
                         <span className="text-gray-500 dark:text-gray-400 sm:text-sm">%</span>
@@ -175,7 +173,6 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ onCalculate, taxResult }) => {
                         onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
                         value={field.value}
                         min={0}
-                        step={100}
                       />
                       <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
                         <span className="text-gray-500 dark:text-gray-400 sm:text-sm">AUD</span>
@@ -229,7 +226,6 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ onCalculate, taxResult }) => {
                             onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
                             value={field.value}
                             min={0}
-                            step={1000}
                           />
                           <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
                             <span className="text-gray-500 dark:text-gray-400 sm:text-sm">AUD</span>

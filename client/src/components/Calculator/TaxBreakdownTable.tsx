@@ -9,7 +9,9 @@ const TaxBreakdownTable: React.FC<TaxBreakdownTableProps> = ({ taxResult }) => {
   return (
     <div>
       <h4 className="text-lg font-medium text-gray-900 dark:text-white mb-4">Tax Breakdown</h4>
-      <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg overflow-hidden">
+      
+      {/* Main breakdown table */}
+      <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg overflow-hidden mb-6">
         <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
           <thead className="bg-gray-100 dark:bg-gray-800">
             <tr>
@@ -48,6 +50,37 @@ const TaxBreakdownTable: React.FC<TaxBreakdownTableProps> = ({ taxResult }) => {
               <td className="px-6 py-4 whitespace-nowrap text-sm text-right font-bold text-gray-900 dark:text-white">
                 {formatPercentage(taxResult.totalTax / taxResult.grossIncome * 100)}
               </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      {/* Tax Brackets Breakdown table */}
+      <h4 className="text-md font-medium text-gray-900 dark:text-white mb-2">Tax Brackets Breakdown</h4>
+      <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg overflow-hidden">
+        <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+          <thead className="bg-gray-100 dark:bg-gray-800">
+            <tr>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Income Bracket</th>
+              <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Tax Rate</th>
+              <th scope="col" className="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">Amount</th>
+            </tr>
+          </thead>
+          <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+            {taxResult.taxByBracket.map((bracket, index) => (
+              <tr key={index}>
+                <td className="px-6 py-3 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">{bracket.bracket}</td>
+                <td className="px-6 py-3 whitespace-nowrap text-sm text-right text-gray-700 dark:text-gray-300">{formatPercentage(bracket.rate * 100)}</td>
+                <td className="px-6 py-3 whitespace-nowrap text-sm text-right text-gray-700 dark:text-gray-300">{formatCurrency(bracket.amount)}</td>
+              </tr>
+            ))}
+            <tr className="bg-gray-50 dark:bg-gray-700">
+              <td className="px-6 py-3 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">Total Income Tax</td>
+              <td className="px-6 py-3 whitespace-nowrap text-sm text-right text-gray-900 dark:text-white">
+                {formatPercentage(taxResult.effectiveTaxRate * 100)}
+                <span className="text-xs text-gray-500 dark:text-gray-400 ml-1">(effective)</span>
+              </td>
+              <td className="px-6 py-3 whitespace-nowrap text-sm text-right font-bold text-gray-900 dark:text-white">{formatCurrency(taxResult.incomeTax)}</td>
             </tr>
           </tbody>
         </table>

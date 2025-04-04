@@ -37,11 +37,11 @@ export const HECS_HELP_THRESHOLDS = [
 
 // Default values for the calculator
 export const DEFAULT_VALUES = {
-  grossIncome: 85000,
-  superRate: 11,
-  taxDeductions: 2500,
-  hasHecsHelp: true,
-  hecsDebtTotal: 25000
+  grossIncome: 0,
+  superRate: 11, // Keeping superannuation at 11% as that's the legal minimum
+  taxDeductions: 0,
+  hasHecsHelp: false,
+  hecsDebtTotal: 0
 };
 
 // Chart colors
