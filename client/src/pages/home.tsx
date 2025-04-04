@@ -211,16 +211,6 @@ const Home: React.FC = () => {
               size="lg" 
               variant="outline" 
               className="bg-transparent border-2 border-primary-400 text-white hover:bg-primary-800/40 hover:text-white hover:border-primary-300 transition-all duration-300 transform hover:scale-105 hover:shadow-glow"
-              onClick={() => {
-                // The Link component will handle navigation
-                // We'll scroll to top after page loads
-                setTimeout(() => {
-                  window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                  });
-                }, 100);
-              }}
             >
               <Calculator className="mr-2 h-5 w-5" />
               Start Calculating

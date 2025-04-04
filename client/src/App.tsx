@@ -14,6 +14,9 @@ function Router() {
   // Log the current location for debugging
   useEffect(() => {
     console.log("Current location:", location);
+    
+    // Scroll to top when navigating between pages
+    window.scrollTo(0, 0);
   }, [location]);
   
   return (
