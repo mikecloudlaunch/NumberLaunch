@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -56,6 +56,16 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ onCalculate, taxResult }) => {
   });
 
   const hasHecsHelp = form.watch('hasHecsHelp');
+  const superRate = form.watch('superRate');
+  const [useCustomSuperRate, setUseCustomSuperRate] = React.useState(false);
+  
+  // Initialize the custom super rate state based on current value
+  useEffect(() => {
+    // Update the custom super rate toggle if the value is not the default
+    if (superRate !== DEFAULT_VALUES.superRate) {
+      setUseCustomSuperRate(true);
+    }
+  }, [superRate, DEFAULT_VALUES.superRate]);
 
   function onSubmit(values: IncomeFormValues) {
     onCalculate(values);
@@ -66,6 +76,7 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ onCalculate, taxResult }) => {
   }
 
   function resetForm() {
+    setUseCustomSuperRate(false); // Reset the toggle state
     form.reset({
       grossIncome: DEFAULT_VALUES.grossIncome,
       superRate: DEFAULT_VALUES.superRate,
@@ -138,19 +149,17 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ onCalculate, taxResult }) => {
                     </FormLabel>
                     <FormControl>
                       <Switch
-                        checked={field.value !== 11}
+                        checked={useCustomSuperRate}
                         onCheckedChange={(checked) => {
-                          if (!checked) {
-                            field.onChange(11); // Default super rate
-                          } else {
-                            field.onChange(10); // Start with a slightly different value
-                          }
+                          setUseCustomSuperRate(checked);
+                          // Always start with base rate of 11% whether turning on or off custom rate
+                          field.onChange(11);
                         }}
                       />
                     </FormControl>
                   </div>
                   
-                  {field.value !== 11 && (
+                  {useCustomSuperRate && (
                     <div className="mt-2">
                       <FormControl>
                         <div className="relative">
