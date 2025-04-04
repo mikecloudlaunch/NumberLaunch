@@ -38,9 +38,9 @@ const IncomeResults: React.FC<IncomeResultsProps> = ({ taxResult }) => {
           <Button 
             variant="secondary" 
             size="sm" 
-            className="hidden sm:flex items-center gap-1 bg-purple-600 text-white hover:bg-purple-700 px-3 py-1 rounded-md shadow-md shadow-purple-900/30"
+            className="hidden sm:flex items-center"
           >
-            <FileText className="w-4 h-4" />
+            <FileText className="w-4 h-4 mr-1" />
             Save PDF
           </Button>
         </div>
@@ -101,9 +101,9 @@ const IncomeResults: React.FC<IncomeResultsProps> = ({ taxResult }) => {
         {/* Mobile PDF Button */}
         <div className="block sm:hidden">
           <Button 
-            variant="default" 
+            variant="secondary" 
             size="default" 
-            className="w-full bg-purple-600 hover:bg-purple-700 text-white shadow-md shadow-purple-900/30"
+            className="w-full"
           >
             <FileText className="w-4 h-4 mr-2" />
             Save PDF

@@ -313,8 +313,8 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ onCalculate, taxResult }) => {
               
               {taxResult && (
                 <Button 
-                  variant="default"
-                  className="w-full sm:w-auto bg-primary-600 hover:bg-primary-700 text-white"
+                  variant="secondary"
+                  className="w-full sm:w-auto"
                 >
                   <FileText className="mr-2 h-4 w-4" />
                   Save PDF
