@@ -30,6 +30,9 @@ const incomeFormSchema = z.object({
   hecsDebtTotal: z.number()
     .min(VALIDATION_RULES.hecsDebtTotal.min, { message: "HECS/HELP debt must be a positive number" })
     .max(VALIDATION_RULES.hecsDebtTotal.max, { message: `HECS/HELP debt must be less than ${VALIDATION_RULES.hecsDebtTotal.max.toLocaleString()}` }),
+  additionalSuperContribution: z.number()
+    .min(VALIDATION_RULES.additionalSuperContribution.min, { message: "Additional super contribution must be a positive number" })
+    .max(VALIDATION_RULES.additionalSuperContribution.max, { message: `Additional super contribution must be less than ${VALIDATION_RULES.additionalSuperContribution.max.toLocaleString()}` }),
 });
 
 type IncomeFormValues = z.infer<typeof incomeFormSchema>;
@@ -51,6 +54,7 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ onCalculate, taxResult }) => {
       taxDeductions: DEFAULT_VALUES.taxDeductions,
       hasHecsHelp: DEFAULT_VALUES.hasHecsHelp,
       hecsDebtTotal: DEFAULT_VALUES.hecsDebtTotal,
+      additionalSuperContribution: DEFAULT_VALUES.additionalSuperContribution,
     },
   });
 
@@ -71,6 +75,7 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ onCalculate, taxResult }) => {
       taxDeductions: DEFAULT_VALUES.taxDeductions,
       hasHecsHelp: DEFAULT_VALUES.hasHecsHelp,
       hecsDebtTotal: DEFAULT_VALUES.hecsDebtTotal,
+      additionalSuperContribution: DEFAULT_VALUES.additionalSuperContribution,
     });
     onCalculate({
       grossIncome: DEFAULT_VALUES.grossIncome,
@@ -78,6 +83,7 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ onCalculate, taxResult }) => {
       taxDeductions: DEFAULT_VALUES.taxDeductions,
       hasHecsHelp: DEFAULT_VALUES.hasHecsHelp,
       hecsDebtTotal: DEFAULT_VALUES.hecsDebtTotal,
+      additionalSuperContribution: DEFAULT_VALUES.additionalSuperContribution,
     });
     toast({
       title: "Form reset",
@@ -201,6 +207,39 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ onCalculate, taxResult }) => {
                   </FormControl>
                   <FormDescription className="text-red-500">
                     {form.formState.errors.taxDeductions?.message}
+                  </FormDescription>
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="additionalSuperContribution"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="flex items-center">
+                    Additional Super Contributions
+                    <span className="inline-flex items-center justify-center ml-1 w-4 h-4 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs cursor-help" title="Additional voluntary contributions to your superannuation">?</span>
+                  </FormLabel>
+                  <FormControl>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <span className="text-gray-500 dark:text-gray-400 sm:text-sm">$</span>
+                      </div>
+                      <Input
+                        type="number"
+                        className="pl-10 pr-12"
+                        onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
+                        value={field.value}
+                        min={0}
+                      />
+                      <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
+                        <span className="text-gray-500 dark:text-gray-400 sm:text-sm">AUD</span>
+                      </div>
+                    </div>
+                  </FormControl>
+                  <FormDescription className="text-red-500">
+                    {form.formState.errors.additionalSuperContribution?.message}
                   </FormDescription>
                 </FormItem>
               )}

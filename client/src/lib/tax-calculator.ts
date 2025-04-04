@@ -11,6 +11,7 @@ export interface IncomeInputs {
   taxDeductions: number;
   hasHecsHelp: boolean;
   hecsDebtTotal: number;
+  additionalSuperContribution?: number; // Optional additional super contribution
 }
 
 export interface TaxResult {
@@ -85,10 +86,12 @@ export const calculateTax = (inputs: IncomeInputs): TaxResult => {
   const takeHomeIncome = inputs.grossIncome - totalTax;
   const monthlyTakeHome = takeHomeIncome / 12;
   
-  // Calculate superannuation
-  const superannuation = inputs.grossIncome * (inputs.superRate / 100);
+  // Calculate superannuation (employer contributions + additional voluntary contributions)
+  const employerSuper = inputs.grossIncome * (inputs.superRate / 100);
+  const additionalSuper = inputs.additionalSuperContribution || 0;
+  const superannuation = employerSuper + additionalSuper;
   
-  // Calculate total package (gross + super)
+  // Calculate total package (gross + employer super + additional super)
   const totalPackage = inputs.grossIncome + superannuation;
   
   // Calculate effective tax rate

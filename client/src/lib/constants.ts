@@ -41,7 +41,8 @@ export const DEFAULT_VALUES = {
   superRate: 11, // Keeping superannuation at 11% as that's the legal minimum
   taxDeductions: 0,
   hasHecsHelp: false,
-  hecsDebtTotal: 0
+  hecsDebtTotal: 0,
+  additionalSuperContribution: 0
 };
 
 // Chart colors
@@ -75,6 +76,10 @@ export const VALIDATION_RULES = {
     max: 1000000
   },
   hecsDebtTotal: {
+    min: 0,
+    max: 1000000
+  },
+  additionalSuperContribution: {
     min: 0,
     max: 1000000
   }
