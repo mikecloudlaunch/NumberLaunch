@@ -32,6 +32,7 @@ const Calculator: React.FC = () => {
 
   return (
     <>
+      <div id="top"></div>
       <section id="calculator" className="py-16 bg-gray-50 dark:bg-gray-900">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -81,6 +82,19 @@ const Calculator: React.FC = () => {
                 />
               </PDFViewer>
             </div>
+          </div>
+          
+          {/* Back to Top Button */}
+          <div className="flex justify-center mt-8">
+            <a 
+              href="#top" 
+              className="text-white bg-secondary hover:bg-secondary-600 transition-colors px-6 py-2 rounded-full inline-flex items-center"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clipRule="evenodd" />
+              </svg>
+              Back to Top
+            </a>
           </div>
         </div>
       </section>
