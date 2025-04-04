@@ -1,22 +1,23 @@
 import React from 'react';
-import { Page, Text, View, Document, StyleSheet, Svg, Circle, G } from '@react-pdf/renderer';
+import { Page, Text, View, Document, StyleSheet, Svg, Circle } from '@react-pdf/renderer';
 import { TaxResult, formatCurrency, formatPercentage } from '@/lib/tax-calculator';
 import { PDF_CONFIG } from '@/lib/constants';
 
-// Define styles
+// Define styles for dark theme PDF
 const styles = StyleSheet.create({
   page: {
     flexDirection: 'column',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#0F172A', // Dark background (slate-900)
     padding: 30,
     fontFamily: 'Helvetica',
+    color: '#E2E8F0', // Text color (slate-200)
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     borderBottomWidth: 1,
-    borderBottomColor: '#E5E7EB',
+    borderBottomColor: '#334155', // slate-700
     paddingBottom: 15,
     marginBottom: 20,
   },
@@ -28,23 +29,28 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     fontSize: 16,
     fontWeight: 'bold',
+    color: '#F8FAFC', // slate-50
   },
   logoSubtext: {
     fontSize: 10,
-    color: '#6B7280',
+    color: '#94A3B8', // slate-400
   },
   dateInfo: {
     fontSize: 10,
-    color: '#6B7280',
+    color: '#94A3B8', // slate-400
     textAlign: 'right',
   },
   section: {
     marginBottom: 20,
+    backgroundColor: '#1E293B', // slate-800
+    borderRadius: 6,
+    padding: 12,
   },
   sectionTitle: {
     fontSize: 14,
     fontWeight: 'bold',
     marginBottom: 10,
+    color: '#F8FAFC', // slate-50
   },
   row: {
     flexDirection: 'row',
@@ -53,29 +59,32 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 10,
-    color: '#6B7280',
+    color: '#94A3B8', // slate-400
   },
   value: {
     fontSize: 10,
     fontWeight: 'bold',
     textAlign: 'right',
+    color: '#F8FAFC', // slate-50
   },
   totalRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingVertical: 5,
     borderTopWidth: 1,
-    borderTopColor: '#E5E7EB',
+    borderTopColor: '#334155', // slate-700
     marginTop: 5,
   },
   totalLabel: {
     fontSize: 10,
     fontWeight: 'bold',
+    color: '#F8FAFC', // slate-50
   },
   totalValue: {
     fontSize: 10,
     fontWeight: 'bold',
     textAlign: 'right',
+    color: '#38BDF8', // sky-400 for highlight
   },
   twoColumnLayout: {
     flexDirection: 'row',
@@ -88,7 +97,7 @@ const styles = StyleSheet.create({
     height: 20,
     marginVertical: 10,
     borderRadius: 5,
-    backgroundColor: '#F3F4F6',
+    backgroundColor: '#334155', // slate-700
     flexDirection: 'row',
     overflow: 'hidden',
   },
@@ -111,10 +120,11 @@ const styles = StyleSheet.create({
     width: 8,
     height: 8,
     marginRight: 5,
+    borderRadius: 2,
   },
   legendText: {
     fontSize: 8,
-    color: '#6B7280',
+    color: '#94A3B8', // slate-400
   },
   table: {
     marginVertical: 10,
@@ -123,40 +133,44 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingVertical: 5,
     borderBottomWidth: 1,
-    borderBottomColor: '#E5E7EB',
+    borderBottomColor: '#334155', // slate-700
   },
   tableHeader: {
-    backgroundColor: '#F3F4F6',
+    backgroundColor: '#334155', // slate-700
     fontWeight: 'bold',
   },
   tableCol1: {
     width: '45%',
     fontSize: 9,
     paddingHorizontal: 5,
+    color: '#E2E8F0', // slate-200
   },
   tableCol2: {
     width: '30%',
     fontSize: 9,
     textAlign: 'right',
     paddingHorizontal: 5,
+    color: '#E2E8F0', // slate-200
   },
   tableCol3: {
     width: '25%',
     fontSize: 9,
     textAlign: 'right',
     paddingHorizontal: 5,
+    color: '#E2E8F0', // slate-200
   },
   disclaimer: {
     fontSize: 8,
-    color: '#6B7280',
+    color: '#94A3B8', // slate-400
     marginTop: 20,
     borderTopWidth: 1,
-    borderTopColor: '#E5E7EB',
+    borderTopColor: '#334155', // slate-700
     paddingTop: 10,
   },
   disclaimerTitle: {
     fontWeight: 'bold',
     marginBottom: 3,
+    color: '#E2E8F0', // slate-200
   },
   footer: {
     position: 'absolute',
@@ -164,9 +178,9 @@ const styles = StyleSheet.create({
     left: 30,
     right: 30,
     fontSize: 8,
-    color: '#6B7280',
+    color: '#94A3B8', // slate-400
     textAlign: 'center',
-  },
+  }
 });
 
 interface PDFDocumentProps {
@@ -198,15 +212,11 @@ const IncomeAnalysisPDF = ({ taxResult, inputs }: PDFDocumentProps) => {
   return (
     <Document>
       <Page size="A4" style={styles.page}>
-        {/* Header with logo */}
+        {/* Header with simple logo */}
         <View style={styles.header}>
           <View style={styles.logoContainer}>
             <Svg width={24} height={24} viewBox="0 0 24 24">
-              <G fill="#3B82F6">
-                <Circle cx={12} cy={12} r={12} fillOpacity={0.2} />
-                <Circle cx={12} cy={12} r={8} fillOpacity={0.3} />
-                <Circle cx={12} cy={12} r={4} fillOpacity={0.8} />
-              </G>
+              <Circle cx={12} cy={12} r={10} fill="#3B82F6" />
             </Svg>
             <View>
               <Text style={styles.logoText}>NumberLaunch</Text>
@@ -313,7 +323,7 @@ const IncomeAnalysisPDF = ({ taxResult, inputs }: PDFDocumentProps) => {
               <Text style={styles.tableCol3}>Rate</Text>
             </View>
             {taxResult.taxByBracket.map((bracket, index) => (
-              <View key={index} style={styles.tableRow}>
+              <View key={index.toString()} style={styles.tableRow}>
                 <Text style={styles.tableCol1}>{bracket.rate}% tax bracket</Text>
                 <Text style={styles.tableCol2}>{formatCurrency(bracket.amount)}</Text>
                 <Text style={styles.tableCol3}>{bracket.bracket}</Text>

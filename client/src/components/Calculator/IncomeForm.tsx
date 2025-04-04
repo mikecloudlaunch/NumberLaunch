@@ -9,8 +9,9 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import { Calculator, RefreshCw, FileText } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { PDFDownloadLink } from '@react-pdf/renderer';
-import IncomeAnalysisPDF from '@/components/ui/pdf-document';
+// PDF functionality temporarily disabled for troubleshooting
+// import { PDFDownloadLink } from '@react-pdf/renderer';
+// import IncomeAnalysisPDF from '@/components/ui/pdf-document';
 import { DEFAULT_VALUES, VALIDATION_RULES } from '@/lib/constants';
 import { TaxResult } from '@/lib/tax-calculator';
 
@@ -138,6 +139,8 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ onCalculate, taxResult }) => {
                         onCheckedChange={(checked) => {
                           if (!checked) {
                             field.onChange(11); // Default super rate
+                          } else {
+                            field.onChange(10); // Start with a slightly different value
                           }
                         }}
                       />
@@ -270,28 +273,13 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ onCalculate, taxResult }) => {
               </Button>
               
               {taxResult && (
-                <PDFDownloadLink
-                  document={
-                    <IncomeAnalysisPDF 
-                      taxResult={taxResult} 
-                      inputs={{
-                        grossIncome: form.getValues('grossIncome'),
-                        superRate: form.getValues('superRate'),
-                        taxDeductions: form.getValues('taxDeductions'),
-                        hasHecsHelp: form.getValues('hasHecsHelp'),
-                        hecsDebtTotal: form.getValues('hecsDebtTotal'),
-                      }}
-                    />
-                  }
-                  fileName="numberlaunch-income-report.pdf"
+                <Button 
+                  variant="outline" 
+                  className="w-full sm:w-auto bg-primary-900/20 hover:bg-primary-800/30 border-primary-800 text-primary-400"
                 >
-                  {({ loading }) => (
-                    <Button variant="outline" disabled={loading}>
-                      <FileText className="mr-2 h-4 w-4" />
-                      {loading ? "Generating PDF..." : "Generate PDF"}
-                    </Button>
-                  )}
-                </PDFDownloadLink>
+                  <FileText className="mr-2 h-4 w-4" />
+                  Generate PDF
+                </Button>
               )}
             </div>
           </form>

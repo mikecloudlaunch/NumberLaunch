@@ -6,8 +6,9 @@ import IncomeDistributionChart from './Charts/IncomeDistributionChart';
 import TaxBracketChart from './Charts/TaxBracketChart';
 import TaxBreakdownTable from './TaxBreakdownTable';
 import { Button } from '@/components/ui/button';
-import IncomeAnalysisPDF from '@/components/ui/pdf-document';
-import { PDFDownloadLink } from '@react-pdf/renderer';
+// PDF functionality temporarily disabled for troubleshooting
+// import IncomeAnalysisPDF from '@/components/ui/pdf-document';
+// import { PDFDownloadLink } from '@react-pdf/renderer';
 
 interface IncomeResultsProps {
   taxResult: TaxResult;
@@ -34,23 +35,14 @@ const IncomeResults: React.FC<IncomeResultsProps> = ({ taxResult }) => {
           </div>
           
           {/* Generate PDF Button */}
-          <PDFDownloadLink 
-            document={<IncomeAnalysisPDF taxResult={taxResult} inputs={formInputs} />}
-            fileName={`income-analysis-${new Date().getTime()}.pdf`}
-            className="hidden sm:block"
+          <Button 
+            variant="secondary" 
+            size="sm" 
+            className="hidden sm:block bg-white text-primary-700 hover:bg-gray-50"
           >
-            {({ blob, url, loading, error }) => (
-              <Button 
-                variant="secondary" 
-                size="sm" 
-                className="bg-white text-primary-700 hover:bg-gray-50"
-                disabled={loading}
-              >
-                <FileText className="w-4 h-4 mr-2" />
-                {loading ? 'Generating PDF...' : 'Download PDF Report'}
-              </Button>
-            )}
-          </PDFDownloadLink>
+            <FileText className="w-4 h-4 mr-2" />
+            Download PDF Report
+          </Button>
         </div>
       </div>
       
@@ -108,23 +100,14 @@ const IncomeResults: React.FC<IncomeResultsProps> = ({ taxResult }) => {
         
         {/* Mobile PDF Button */}
         <div className="block sm:hidden">
-          <PDFDownloadLink 
-            document={<IncomeAnalysisPDF taxResult={taxResult} inputs={formInputs} />}
-            fileName={`income-analysis-${new Date().getTime()}.pdf`}
+          <Button 
+            variant="secondary" 
+            size="default" 
             className="w-full"
           >
-            {({ blob, url, loading, error }) => (
-              <Button 
-                variant="secondary" 
-                size="default" 
-                className="w-full"
-                disabled={loading}
-              >
-                <FileText className="w-4 h-4 mr-2" />
-                {loading ? 'Generating PDF...' : 'Download PDF Report'}
-              </Button>
-            )}
-          </PDFDownloadLink>
+            <FileText className="w-4 h-4 mr-2" />
+            Download PDF Report
+          </Button>
         </div>
       </div>
     </div>
