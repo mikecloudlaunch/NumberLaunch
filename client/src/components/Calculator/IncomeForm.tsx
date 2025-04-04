@@ -311,7 +311,7 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ onCalculate, taxResult }) => {
                 Reset
               </Button>
               
-              {taxResult && (
+              {form.formState.isSubmitted && taxResult && (
                 <PDFDownloadLink
                   document={
                     <IncomeAnalysisPDF 
@@ -328,10 +328,10 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ onCalculate, taxResult }) => {
                   fileName={`NumberLaunch-TaxReport-${new Date().toISOString().split('T')[0]}.pdf`}
                   className="w-full sm:w-auto"
                 >
-                  {({ loading }) => (
+                  {({ loading, error }) => (
                     <Button 
                       variant="secondary"
-                      className="w-full sm:w-auto"
+                      className="w-full sm:w-auto bg-secondary hover:bg-secondary/90"
                       disabled={loading}
                     >
                       {loading ? 
