@@ -9,7 +9,11 @@ import fetch from "node-fetch";
 // Verify reCAPTCHA token
 async function verifyRecaptcha(token: string): Promise<boolean> {
   try {
-    const recaptchaSecret = process.env.RECAPTCHA_SECRET_KEY || '6LfNPQorAAAAAHj3FqR5ihXtCPt4WQCeKoJAHKF8'; // This is Google's test secret key
+    // Use Google's test secret key for development
+    const recaptchaSecret = '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe'; // Google's test secret key
+    
+    console.log('Verifying reCAPTCHA with token length:', token.length);
+    
     const response = await fetch('https://www.google.com/recaptcha/api/siteverify', {
       method: 'POST',
       headers: {
@@ -19,6 +23,9 @@ async function verifyRecaptcha(token: string): Promise<boolean> {
     });
 
     const data = await response.json() as { success: boolean };
+    
+    console.log('reCAPTCHA verification result:', data);
+    
     return data.success === true;
   } catch (error) {
     console.error('reCAPTCHA verification error:', error);
