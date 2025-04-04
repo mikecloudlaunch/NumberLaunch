@@ -38,7 +38,7 @@ const IncomeResults: React.FC<IncomeResultsProps> = ({ taxResult }) => {
           <Button 
             variant="secondary" 
             size="sm" 
-            className="hidden sm:flex items-center gap-1 bg-primary-600 text-white hover:bg-primary-700 px-3 py-1 rounded-md"
+            className="hidden sm:flex items-center gap-1 bg-purple-600 text-white hover:bg-purple-700 px-3 py-1 rounded-md shadow-md shadow-purple-900/30"
           >
             <FileText className="w-4 h-4" />
             Save PDF
@@ -103,7 +103,7 @@ const IncomeResults: React.FC<IncomeResultsProps> = ({ taxResult }) => {
           <Button 
             variant="default" 
             size="default" 
-            className="w-full bg-primary-600 hover:bg-primary-700 text-white"
+            className="w-full bg-purple-600 hover:bg-purple-700 text-white shadow-md shadow-purple-900/30"
           >
             <FileText className="w-4 h-4 mr-2" />
             Save PDF
