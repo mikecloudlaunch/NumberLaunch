@@ -20,13 +20,20 @@ const Home: React.FC = () => {
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Link href="/calculator">
-                <Button size="lg">
+                <Button 
+                  size="lg" 
+                  className="bg-primary-600 hover:bg-primary-500 text-white border-2 border-primary-400 hover:border-primary-300 shadow-md hover:shadow-glow transition-all duration-300 transform hover:scale-105"
+                >
                   <Calculator className="mr-2 h-5 w-5" />
                   Calculate Now — Fast, Accurate, Effortless
                 </Button>
               </Link>
               <Link href="#features">
-                <Button size="lg" variant="secondary">
+                <Button 
+                  size="lg" 
+                  variant="secondary" 
+                  className="bg-secondary-600 hover:bg-secondary-500 text-white border-2 border-secondary-400 hover:border-secondary-300 shadow-md hover:shadow-glow transition-all duration-300 transform hover:scale-105"
+                >
                   <Info className="mr-2 h-5 w-5" />
                   Learn More
                 </Button>
@@ -186,8 +193,7 @@ const Home: React.FC = () => {
           <Link href="/calculator">
             <Button 
               size="lg" 
-              variant="outline" 
-              className="bg-transparent border-2 border-primary-400 text-white hover:bg-primary-800/40 hover:text-white hover:border-primary-300 transition-all duration-300 transform hover:scale-105 hover:shadow-glow"
+              className="bg-primary-600 hover:bg-primary-500 text-white border-2 border-primary-400 hover:border-primary-300 shadow-md hover:shadow-glow transition-all duration-300 transform hover:scale-105"
             >
               <Calculator className="mr-2 h-5 w-5" />
               Start Calculating
