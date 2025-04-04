@@ -70,7 +70,7 @@ const SpaceBg: React.FC<SpaceBgProps> = ({ children, className = '' }) => {
       <div className="absolute top-2/3 left-1/3 w-60 h-60 bg-purple-500 dark:bg-purple-800 rounded-full mix-blend-multiply dark:mix-blend-soft-light filter blur-3xl opacity-20 animate-pulse animation-delay-4000"></div>
       
       {/* Shooting star (occasional) */}
-      <div className="absolute w-0.5 h-px bg-white top-1/4 left-[20%] animate-shooting-star"></div>
+      <div className="absolute w-0.5 h-px bg-white top-1/4 left-[-10px] animate-shooting-star"></div>
       
       {/* Content */}
       <div className="relative z-10">
@@ -111,18 +111,19 @@ styleElement.textContent = `
   
   @keyframes shooting-star {
     0% {
-      transform: translateX(0) translateY(0) rotate(45deg) scale(0);
+      transform: translateX(-100px) translateY(100px) rotate(45deg) scale(0);
       opacity: 0;
     }
     5% {
+      transform: translateX(-50px) translateY(50px) rotate(45deg) scale(1);
       opacity: 1;
     }
-    10% {
-      transform: translateX(100px) translateY(-100px) rotate(45deg) scale(1);
+    20% {
+      transform: translateX(150px) translateY(-150px) rotate(45deg) scale(1);
       opacity: 0;
     }
     100% {
-      transform: translateX(100px) translateY(-100px) rotate(45deg) scale(1);
+      transform: translateX(200px) translateY(-200px) rotate(45deg) scale(0);
       opacity: 0;
     }
   }

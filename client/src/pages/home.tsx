@@ -51,7 +51,7 @@ const Home: React.FC = () => {
                   className="absolute h-px bg-gradient-to-r from-transparent via-white to-transparent"
                   style={{
                     top: `${Math.random() * 100}%`,
-                    left: '0%',
+                    left: '-100px',
                     width: `${Math.random() * 150 + 50}px`,
                     opacity: Math.random() * 0.8 + 0.2,
                     transform: `rotate(${Math.random() * 20 - 10}deg)`,
