@@ -173,10 +173,10 @@ export default function Contact() {
               For urgent inquiries, you can also reach us directly at:
             </p>
             <a 
-              href="mailto:support@numberlaunch.com" 
+              href="mailto:mike@cloudlaunch.au" 
               className="text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300 font-medium"
             >
-              support@numberlaunch.com
+              mike@cloudlaunch.au
             </a>
           </div>
         </div>

@@ -114,7 +114,7 @@ const Privacy: React.FC = () => {
             <h2 className="text-2xl font-bold font-space text-white mt-8 mb-4">9. Contact Us</h2>
             
             <p className="text-gray-300 mb-6">
-              If you have any questions about this Privacy Policy, please contact us at <a href="mailto:privacy@numberlaunch.com" className="text-primary-400 hover:text-primary-300 transition-colors">privacy@numberlaunch.com</a>.
+              If you have any questions about this Privacy Policy, please contact us at <a href="mailto:mike@cloudlaunch.au" className="text-primary-400 hover:text-primary-300 transition-colors">mike@cloudlaunch.au</a>.
             </p>
           </div>
         </div>
