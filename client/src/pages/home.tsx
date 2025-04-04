@@ -22,7 +22,7 @@ const Home: React.FC = () => {
               <Link href="/calculator">
                 <Button 
                   size="lg" 
-                  className="bg-primary-600 hover:bg-primary-500 text-white border-2 border-primary-400 hover:border-primary-300 shadow-md hover:shadow-glow transition-all duration-300 transform hover:scale-105"
+                  className="bg-purple-700 hover:bg-purple-600 text-white border-2 border-purple-500 hover:border-purple-400 shadow-lg hover:shadow-purple-500/40 transition-all duration-300 transform hover:scale-105 font-medium"
                 >
                   <Calculator className="mr-2 h-5 w-5" />
                   Calculate Now — Fast, Accurate, Effortless
@@ -32,7 +32,7 @@ const Home: React.FC = () => {
                 <Button 
                   size="lg" 
                   variant="secondary" 
-                  className="bg-secondary-600 hover:bg-secondary-500 text-white border-2 border-secondary-400 hover:border-secondary-300 shadow-md hover:shadow-glow transition-all duration-300 transform hover:scale-105"
+                  className="bg-indigo-600 hover:bg-indigo-500 text-white border-2 border-indigo-400 hover:border-indigo-300 shadow-lg hover:shadow-indigo-500/40 transition-all duration-300 transform hover:scale-105 font-medium"
                 >
                   <Info className="mr-2 h-5 w-5" />
                   Learn More
@@ -45,7 +45,7 @@ const Home: React.FC = () => {
           <div className="mt-16 sm:mt-24 relative h-24 md:h-32 flex items-center justify-center">
             {/* Animated shooting stars */}
             <div className="absolute w-full h-full overflow-hidden">
-              {[...Array(5)].map((_, i) => (
+              {[...Array(3)].map((_, i) => (
                 <div
                   key={i}
                   className="absolute h-px bg-gradient-to-r from-transparent via-white to-transparent"
@@ -55,7 +55,7 @@ const Home: React.FC = () => {
                     width: `${Math.random() * 150 + 50}px`,
                     opacity: Math.random() * 0.8 + 0.2,
                     transform: `rotate(${Math.random() * 20 - 10}deg)`,
-                    animation: `shooting-star ${Math.random() * 6 + 4}s linear ${Math.random() * 5}s infinite`
+                    animation: `shooting-star ${Math.random() * 8 + 12}s linear ${Math.random() * 10 + 10}s infinite`
                   }}
                 />
               ))}
@@ -193,7 +193,7 @@ const Home: React.FC = () => {
           <Link href="/calculator">
             <Button 
               size="lg" 
-              className="bg-primary-600 hover:bg-primary-500 text-white border-2 border-primary-400 hover:border-primary-300 shadow-md hover:shadow-glow transition-all duration-300 transform hover:scale-105"
+              className="bg-purple-700 hover:bg-purple-600 text-white border-2 border-purple-500 hover:border-purple-400 shadow-lg hover:shadow-purple-500/40 transition-all duration-300 transform hover:scale-105 font-medium"
             >
               <Calculator className="mr-2 h-5 w-5" />
               Start Calculating

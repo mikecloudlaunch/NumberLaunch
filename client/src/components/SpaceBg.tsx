@@ -133,8 +133,8 @@ styleElement.textContent = `
   }
   
   .animate-shooting-star {
-    animation: shooting-star 10s infinite ease-out;
-    animation-delay: 5s;
+    animation: shooting-star 15s infinite ease-out;
+    animation-delay: 15s;
     box-shadow: 0 0 5px 1px rgba(255, 255, 255, 0.8);
   }
   
