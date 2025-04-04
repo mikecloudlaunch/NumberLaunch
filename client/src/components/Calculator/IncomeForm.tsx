@@ -7,11 +7,11 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel } fr
 import { Input } from '@/components/ui/input';
 import { Card, CardContent } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
-import { Calculator, RefreshCw, FileText } from 'lucide-react';
+import { Calculator, RefreshCw, FileText, Loader } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-// PDF functionality temporarily disabled for troubleshooting
-// import { PDFDownloadLink } from '@react-pdf/renderer';
-// import IncomeAnalysisPDF from '@/components/ui/pdf-document';
+// PDF functionality 
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import IncomeAnalysisPDF from '@/components/ui/pdf-document';
 import { DEFAULT_VALUES, VALIDATION_RULES } from '@/lib/constants';
 import { TaxResult } from '@/lib/tax-calculator';
 
@@ -312,13 +312,36 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ onCalculate, taxResult }) => {
               </Button>
               
               {taxResult && (
-                <Button 
-                  variant="secondary"
+                <PDFDownloadLink
+                  document={
+                    <IncomeAnalysisPDF 
+                      taxResult={taxResult} 
+                      inputs={{
+                        grossIncome: taxResult.grossIncome,
+                        superRate: taxResult.superannuation / taxResult.grossIncome * 100,
+                        taxDeductions: taxResult.grossIncome - taxResult.taxableIncome,
+                        hasHecsHelp: taxResult.hecsRepayment > 0,
+                        hecsDebtTotal: taxResult.hecsRepayment > 0 ? 25000 : 0,
+                      }}
+                    />
+                  }
+                  fileName={`NumberLaunch-TaxReport-${new Date().toISOString().split('T')[0]}.pdf`}
                   className="w-full sm:w-auto"
                 >
-                  <FileText className="mr-2 h-4 w-4" />
-                  Save PDF
-                </Button>
+                  {({ loading }) => (
+                    <Button 
+                      variant="secondary"
+                      className="w-full sm:w-auto"
+                      disabled={loading}
+                    >
+                      {loading ? 
+                        <Loader className="mr-2 h-4 w-4 animate-spin" /> : 
+                        <FileText className="mr-2 h-4 w-4" />
+                      }
+                      {loading ? "Preparing..." : "Save PDF"}
+                    </Button>
+                  )}
+                </PDFDownloadLink>
               )}
             </div>
           </form>

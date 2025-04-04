@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { TaxResult, formatCurrency, formatPercentage } from '@/lib/tax-calculator';
 import DataCard from '@/components/ui/data-card';
-import { Wallet, Landmark, PiggyBank, GraduationCap, FileText } from 'lucide-react';
+import { Wallet, Landmark, PiggyBank, GraduationCap, FileText, Loader } from 'lucide-react';
 import IncomeDistributionChart from './Charts/IncomeDistributionChart';
 import TaxBracketChart from './Charts/TaxBracketChart';
 import TaxBreakdownTable from './TaxBreakdownTable';
 import { Button } from '@/components/ui/button';
-// PDF functionality temporarily disabled for troubleshooting
-// import IncomeAnalysisPDF from '@/components/ui/pdf-document';
-// import { PDFDownloadLink } from '@react-pdf/renderer';
+// PDF functionality
+import IncomeAnalysisPDF from '@/components/ui/pdf-document';
+import { PDFDownloadLink } from '@react-pdf/renderer';
 
 interface IncomeResultsProps {
   taxResult: TaxResult;
@@ -35,14 +35,31 @@ const IncomeResults: React.FC<IncomeResultsProps> = ({ taxResult }) => {
           </div>
           
           {/* Generate PDF Button */}
-          <Button 
-            variant="secondary" 
-            size="sm" 
-            className="hidden sm:flex items-center"
+          <PDFDownloadLink
+            document={
+              <IncomeAnalysisPDF 
+                taxResult={taxResult} 
+                inputs={formInputs}
+              />
+            }
+            fileName={`NumberLaunch-TaxReport-${new Date().toISOString().split('T')[0]}.pdf`}
+            className="hidden sm:block"
           >
-            <FileText className="w-4 h-4 mr-1" />
-            Save PDF
-          </Button>
+            {({ loading }) => (
+              <Button 
+                variant="secondary" 
+                size="sm" 
+                className="flex items-center"
+                disabled={loading}
+              >
+                {loading ? 
+                  <Loader className="w-4 h-4 mr-1 animate-spin" /> : 
+                  <FileText className="w-4 h-4 mr-1" />
+                }
+                {loading ? "Preparing..." : "Download Report"}
+              </Button>
+            )}
+          </PDFDownloadLink>
         </div>
       </div>
       
@@ -100,14 +117,31 @@ const IncomeResults: React.FC<IncomeResultsProps> = ({ taxResult }) => {
         
         {/* Mobile PDF Button */}
         <div className="block sm:hidden">
-          <Button 
-            variant="secondary" 
-            size="default" 
+          <PDFDownloadLink
+            document={
+              <IncomeAnalysisPDF 
+                taxResult={taxResult} 
+                inputs={formInputs}
+              />
+            }
+            fileName={`NumberLaunch-TaxReport-${new Date().toISOString().split('T')[0]}.pdf`}
             className="w-full"
           >
-            <FileText className="w-4 h-4 mr-2" />
-            Save PDF
-          </Button>
+            {({ loading }) => (
+              <Button 
+                variant="secondary" 
+                size="default" 
+                className="w-full"
+                disabled={loading}
+              >
+                {loading ? 
+                  <Loader className="w-4 h-4 mr-2 animate-spin" /> : 
+                  <FileText className="w-4 h-4 mr-2" />
+                }
+                {loading ? "Preparing..." : "Download Report"}
+              </Button>
+            )}
+          </PDFDownloadLink>
         </div>
       </div>
     </div>
