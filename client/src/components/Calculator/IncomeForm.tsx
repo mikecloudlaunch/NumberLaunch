@@ -114,7 +114,7 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ onCalculate, taxResult }) => {
                         type="number"
                         className="pl-10 pr-12"
                         onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
-                        value={field.value}
+                        value={field.value === 0 ? '' : field.value}
                         min={0}
                       />
                       <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
@@ -161,7 +161,7 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ onCalculate, taxResult }) => {
                             type="number"
                             className="pr-12"
                             onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
-                            value={field.value}
+                            value={field.value === 0 ? '' : field.value}
                             min={0}
                             max={100}
                           />
@@ -197,7 +197,7 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ onCalculate, taxResult }) => {
                         type="number"
                         className="pl-10 pr-12"
                         onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
-                        value={field.value}
+                        value={field.value === 0 ? '' : field.value}
                         min={0}
                       />
                       <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
@@ -230,7 +230,7 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ onCalculate, taxResult }) => {
                         type="number"
                         className="pl-10 pr-12"
                         onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
-                        value={field.value}
+                        value={field.value === 0 ? '' : field.value}
                         min={0}
                       />
                       <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
@@ -283,7 +283,7 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ onCalculate, taxResult }) => {
                             type="number"
                             className="pl-10 pr-12"
                             onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
-                            value={field.value}
+                            value={field.value === 0 ? '' : field.value}
                             min={0}
                           />
                           <div className="absolute inset-y-0 right-0 pr-3 flex items-center">

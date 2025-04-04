@@ -76,7 +76,7 @@ const TaxBreakdownTable: React.FC<TaxBreakdownTableProps> = ({ taxResult }) => {
             ))}
             <tr>
               <td className="px-6 py-3 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">Medicare Levy</td>
-              <td className="px-6 py-3 whitespace-nowrap text-sm text-right text-gray-700 dark:text-gray-300">2.0¢</td>
+              <td className="px-6 py-3 whitespace-nowrap text-sm text-right text-gray-700 dark:text-gray-300">2.0%</td>
               <td className="px-6 py-3 whitespace-nowrap text-sm text-right text-gray-700 dark:text-gray-300">{formatCurrency(taxResult.medicareTax)}</td>
             </tr>
             {taxResult.hecsRepayment > 0 && (
