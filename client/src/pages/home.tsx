@@ -34,53 +34,30 @@ const Home: React.FC = () => {
             </div>
           </div>
           
-          {/* Space-themed decoration */}
-          <div className="mt-16 sm:mt-24 max-w-4xl mx-auto relative">
-            <div className="relative overflow-hidden rounded-xl shadow-2xl shadow-primary-500/20 border border-gray-700 h-[300px] bg-gray-800/50">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary-700/20 to-secondary-700/20 rounded-xl"></div>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="relative w-full h-full">
-                  {/* Animated planet */}
-                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 rounded-full bg-gradient-to-br from-primary-800 to-primary-600 shadow-xl shadow-primary-700/40 animate-pulse"></div>
-                  
-                  {/* Planet ring */}
-                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-60 h-16 bg-secondary-500/20 rounded-full blur-sm rotate-12"></div>
-                  
-                  {/* Stars background */}
-                  <div className="absolute inset-0 overflow-hidden">
-                    {[...Array(30)].map((_, i) => (
-                      <div
-                        key={i}
-                        className="absolute rounded-full bg-white"
-                        style={{
-                          top: `${Math.random() * 100}%`,
-                          left: `${Math.random() * 100}%`,
-                          width: `${Math.random() * 3 + 1}px`,
-                          height: `${Math.random() * 3 + 1}px`,
-                          opacity: Math.random() * 0.8 + 0.2,
-                          animation: `pulse ${Math.random() * 3 + 2}s infinite alternate`
-                        }}
-                      />
-                    ))}
-                  </div>
-
-                  {/* Calculator interface overlay */}
-                  <div className="absolute bottom-4 right-4 w-64 h-40 bg-gray-900/80 backdrop-blur-sm rounded-lg border border-gray-700 p-3 shadow-lg">
-                    <div className="h-5 w-24 bg-primary-500/60 rounded mb-3"></div>
-                    <div className="h-3 w-32 bg-gray-400/60 rounded mb-4"></div>
-                    <div className="flex space-x-2 mb-3">
-                      <div className="h-8 w-16 bg-gray-700/80 rounded"></div>
-                      <div className="h-8 w-20 bg-gray-700/80 rounded"></div>
-                    </div>
-                    <div className="h-8 w-full bg-primary-600/60 rounded"></div>
-                  </div>
-                </div>
-              </div>
+          {/* Enhanced Space-themed decoration - Shooting Stars */}
+          <div className="mt-16 sm:mt-24 relative h-24 md:h-32 flex items-center justify-center">
+            {/* Animated shooting stars */}
+            <div className="absolute w-full h-full overflow-hidden">
+              {[...Array(5)].map((_, i) => (
+                <div
+                  key={i}
+                  className="absolute h-px bg-gradient-to-r from-transparent via-white to-transparent"
+                  style={{
+                    top: `${Math.random() * 100}%`,
+                    left: '0%',
+                    width: `${Math.random() * 150 + 50}px`,
+                    opacity: Math.random() * 0.8 + 0.2,
+                    transform: `rotate(${Math.random() * 20 - 10}deg)`,
+                    animation: `shooting-star ${Math.random() * 6 + 4}s linear ${Math.random() * 5}s infinite`
+                  }}
+                />
+              ))}
             </div>
             
-            {/* Floating elements to create space theme */}
-            <div className="absolute -right-6 -bottom-6 w-12 h-12 bg-secondary-500 rounded-full opacity-50 blur-xl animate-pulse"></div>
-            <div className="absolute left-1/4 -top-6 w-8 h-8 bg-primary-500 rounded-full opacity-50 blur-xl animate-pulse animation-delay-2000"></div>
+            {/* Glowing text */}
+            <p className="text-xl md:text-2xl text-center text-gray-200 font-space relative z-10 px-4 italic">
+              "Your financial future starts with <span className="text-primary-400 font-bold animate-pulse">clarity</span>"
+            </p>
           </div>
         </div>
       </SpaceBg>

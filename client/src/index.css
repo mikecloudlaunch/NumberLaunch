@@ -11,3 +11,25 @@
     @apply font-sans antialiased bg-background text-foreground;
   }
 }
+
+@keyframes shooting-star {
+  0% {
+    transform: translateX(0) translateY(0) rotate(-5deg);
+    opacity: 0;
+  }
+  2% {
+    opacity: 1;
+  }
+  60%, 100% {
+    transform: translateX(200vw) translateY(50vh) rotate(-5deg);
+    opacity: 0;
+  }
+}
+
+.shadow-cosmic {
+  box-shadow: 0 0 15px rgba(82, 51, 237, 0.15), 0 0 30px rgba(94, 58, 237, 0.05);
+}
+
+.animation-delay-2000 {
+  animation-delay: 2s;
+}
