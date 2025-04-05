@@ -1,9 +1,6 @@
 import React from 'react';
 import { Separator } from "@/components/ui/separator";
 import SpaceBg from "@/components/SpaceBg";
-import Logo from '@/components/Logo';
-import { Link } from 'wouter';
-import Footer from '@/components/Layout/Footer';
 
 interface ChangelogItem {
   version: string;
@@ -69,40 +66,22 @@ const changelog: ChangelogItem[] = [
 
 export default function Changelog() {
   return (
-    <SpaceBg className="min-h-screen flex flex-col">
-      {/* Navbar */}
-      <header className="w-full bg-black bg-opacity-70 backdrop-blur-sm py-4 border-b border-gray-800">
-        <div className="container mx-auto px-4 flex justify-between items-center">
-          <Link href="/" className="flex items-center">
-            <Logo size="sm" />
-          </Link>
-          <nav className="hidden md:flex items-center space-x-8">
-            <Link href="/" className="text-gray-300 hover:text-white transition-colors">
-              Home
-            </Link>
-            <Link href="/calculator" className="text-gray-300 hover:text-white transition-colors">
-              Calculator
-            </Link>
-            <Link href="/about" className="text-gray-300 hover:text-white transition-colors">
-              About
-            </Link>
-            <Link href="/contact" className="text-gray-300 hover:text-white transition-colors">
-              Contact
-            </Link>
-          </nav>
-        </div>
-      </header>
-      
-      <div className="container mx-auto px-4 py-12 flex-grow">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-space font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-indigo-400">
-            NumberLaunch Changelog
+    <div className="bg-gray-900 min-h-screen pb-16">
+      {/* Hero Section */}
+      <div className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gray-900">
+        <div className="absolute inset-0 z-0 bg-gradient-to-b from-indigo-900/20 to-transparent"></div>
+        <div className="max-w-5xl mx-auto text-center relative z-10">
+          <h1 className="text-4xl md:text-5xl font-bold font-space text-white mb-6">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-indigo-400">NumberLaunch</span> Changelog
           </h1>
-          
-          <p className="text-gray-400 text-lg mb-12 text-center">
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
             Track our journey as we improve and expand the NumberLaunch calculator.
           </p>
-          
+        </div>
+      </div>
+      
+      <div className="container mx-auto px-4 py-12">
+        <div className="max-w-4xl mx-auto">
           <div className="space-y-16">
             {changelog.map((release, index) => (
               <div key={release.version} className="relative">
@@ -168,9 +147,6 @@ export default function Changelog() {
           </div>
         </div>
       </div>
-      
-      {/* Footer */}
-      <Footer />
-    </SpaceBg>
+    </div>
   );
 }
