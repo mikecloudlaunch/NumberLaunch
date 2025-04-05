@@ -1,69 +1,46 @@
-# NumberLaunch Deployment Guide
+# Vercel Deployment Instructions
 
-This guide walks you through deploying the NumberLaunch application to Vercel using GitHub.
+## Configuration
 
-## Prerequisites
+1. Create a new project in Vercel
+2. Connect to your GitHub repository
+3. Configure the following settings:
 
-1. A GitHub account
-2. A Vercel account
-3. Google reCAPTCHA keys
-4. SendGrid API key
+### Build Settings
+- Build Command: `node build-vercel.js`
+- Output Directory: `dist`
+- Install Command: `npm install`
 
-## GitHub Setup
+### Environment Variables
+- `NODE_ENV`: `production`
 
-1. Create a new GitHub repository
-2. Push your code to the repository
-3. Make sure that all changes are on the main branch for deployment
+## Important Files
 
-## Vercel Deployment
+The deployment uses these key files:
+- `build-vercel.js`: Custom build script that creates the distribution files
+- `api/index.js`: Serverless function that handles all requests (both API and static file serving)
+- `vercel.json`: Routing configuration for Vercel
 
-1. Log in to Vercel and click "Add New Project"
-2. Import your GitHub repository
-3. Configure the project with the following settings:
-   - Build Command: `node build-vercel.js`
-   - Output Directory: `dist`
-   - Framework Preset: `Other`
+## Troubleshooting
 
-4. Configure the advanced build settings:
-   - Root Directory: `.` (default)
-   - Install Command: `npm install`
+If you see raw code or the wrong content being served:
 
-5. Add Environment Variables:
-   - `VITE_RECAPTCHA_SITE_KEY`: Your Google reCAPTCHA site key
-   - `RECAPTCHA_SECRET_KEY`: Your Google reCAPTCHA secret key
-   - `SENDGRID_API_KEY`: Your SendGrid API key
-   - `NODE_ENV`: `production`
+1. Check the Vercel build logs for any errors
+2. Make sure `NODE_ENV` is set to `production`
+3. Verify that the build command is running correctly and creating the `dist` directory
+4. Check that the routing in `vercel.json` is directing requests to the correct handlers
 
-6. Click "Deploy"
+## Commit Author Verification
 
-## Troubleshooting Deployment
+For proper commit verification when making changes:
+```bash
+git config --local user.name "Mike CloudLaunch"
+git config --local user.email "mike@cloudlaunch.au"
+```
 
-If you encounter issues during deployment:
+## Deployment Steps
 
-1. **Raw code displayed instead of UI**: Check your vercel.json route configuration and ensure it's correctly routing all frontend requests to the static files.
-
-2. **API routes not working**: Verify that the api/index.js file is correctly configured to handle serverless function requests.
-
-3. **Build fails**: Review the build logs in Vercel to identify specific errors. The custom build-vercel.js script will log detailed information about the build process.
-
-4. **Commit author verification**: Ensure your git user.email is verified with Vercel/GitHub to prevent deployment permission issues.
-
-## Verifying Deployment
-
-After deployment is complete:
-
-1. Click on the generated URL to verify the application is working
-2. Test the calculator functionality
-3. Test the contact form with reCAPTCHA
-4. Verify PDF generation is working
-
-## Custom Domain Setup
-
-If you want to use a custom domain:
-
-1. Go to your project settings in Vercel
-2. Navigate to the "Domains" section
-3. Add your domain and follow the instructions to configure DNS
-4. For numberlaunch.com, you'll need to add DNS records at your registrar:
-   - Type: A, Name: @, Value: 76.76.21.21
-   - Type: CNAME, Name: www, Value: cname.vercel-dns.com
+1. Commit your changes with the correct author information
+2. Push to the GitHub repository
+3. Vercel will automatically deploy the changes
+4. Check the deployment logs for any issues

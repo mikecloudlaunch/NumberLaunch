@@ -14,6 +14,11 @@ This guide walks you through deploying the NumberLaunch application to Vercel us
 1. Create a new GitHub repository
 2. Push your code to the repository
 3. Make sure that all changes are on the main branch for deployment
+4. Set the correct author information to ensure Vercel can verify your commits:
+   ```bash
+   git config --local user.name "Mike CloudLaunch"
+   git config --local user.email "mike@cloudlaunch.au"
+   ```
 
 ## Vercel Deployment
 
@@ -36,17 +41,35 @@ This guide walks you through deploying the NumberLaunch application to Vercel us
 
 6. Click "Deploy"
 
+## Important Deployment Files
+
+The deployment relies on these key files:
+
+1. **vercel.json** - Contains the routing configuration for the Vercel platform
+2. **build-vercel.js** - Custom build script that creates distribution files and the serverless function
+3. **api/index.js** - The serverless function that handles API requests and serves static content
+
 ## Troubleshooting Deployment
 
 If you encounter issues during deployment:
 
-1. **Raw code displayed instead of UI**: Check your vercel.json route configuration and ensure it's correctly routing all frontend requests to the static files.
+1. **Raw code displayed instead of UI**: 
+   - Ensure `NODE_ENV` is set to `production` in your Vercel environment variables
+   - Check the routing in vercel.json (it should direct all non-API requests to the api/index.js handler)
+   - Verify that the dist directory is being properly created during build
 
-2. **API routes not working**: Verify that the api/index.js file is correctly configured to handle serverless function requests.
+2. **API routes not working**: 
+   - Verify that the api/index.js file is correctly configured to handle serverless function requests
+   - Check the console logs in the Vercel deployment for any errors
 
-3. **Build fails**: Review the build logs in Vercel to identify specific errors. The custom build-vercel.js script will log detailed information about the build process.
+3. **Build fails**: 
+   - Review the build logs in Vercel to identify specific errors
+   - The custom build-vercel.js script will log detailed information about the build process
+   - Make sure all dependencies are properly installed
 
-4. **Commit author verification**: Ensure your git user.email is verified with Vercel/GitHub to prevent deployment permission issues.
+4. **Commit author verification**: 
+   - Ensure your git user.email is verified with Vercel/GitHub to prevent deployment permission issues
+   - If needed, add your email to the GitHub repository's allowed committers
 
 ## Verifying Deployment
 
