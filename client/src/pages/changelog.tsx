@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
-import Layout from '@/components/Layout/Layout';
+import React from 'react';
 import { Separator } from "@/components/ui/separator";
+import SpaceBg from "@/components/SpaceBg";
+import Logo from '@/components/Logo';
+import { Link } from 'wouter';
+import Footer from '@/components/Layout/Footer';
 
 interface ChangelogItem {
   version: string;
@@ -65,22 +68,38 @@ const changelog: ChangelogItem[] = [
 ];
 
 export default function Changelog() {
-  // Use 'dark' theme to match the app's space theme
-  const theme = 'dark';
-  // Dummy toggle function that does nothing (we'll keep dark mode always)
-  const toggleTheme = () => {
-    // No-op function
-  };
-
   return (
-    <Layout theme={theme} toggleTheme={toggleTheme}>
-      <div className="container mx-auto px-4 py-12">
+    <SpaceBg className="min-h-screen flex flex-col">
+      {/* Navbar */}
+      <header className="w-full bg-black bg-opacity-70 backdrop-blur-sm py-4 border-b border-gray-800">
+        <div className="container mx-auto px-4 flex justify-between items-center">
+          <Link href="/" className="flex items-center">
+            <Logo size="sm" />
+          </Link>
+          <nav className="hidden md:flex items-center space-x-8">
+            <Link href="/" className="text-gray-300 hover:text-white transition-colors">
+              Home
+            </Link>
+            <Link href="/calculator" className="text-gray-300 hover:text-white transition-colors">
+              Calculator
+            </Link>
+            <Link href="/about" className="text-gray-300 hover:text-white transition-colors">
+              About
+            </Link>
+            <Link href="/contact" className="text-gray-300 hover:text-white transition-colors">
+              Contact
+            </Link>
+          </nav>
+        </div>
+      </header>
+      
+      <div className="container mx-auto px-4 py-12 flex-grow">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-5xl font-space font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-primary-500 to-indigo-400">
             NumberLaunch Changelog
           </h1>
           
-          <p className="text-gray-500 dark:text-gray-400 text-lg mb-12 text-center">
+          <p className="text-gray-400 text-lg mb-12 text-center">
             Track our journey as we improve and expand the NumberLaunch calculator.
           </p>
           
@@ -94,43 +113,43 @@ export default function Changelog() {
                   </div>
                 </div>
                 
-                <div className="bg-gray-50 dark:bg-gray-900 rounded-xl p-6 md:p-8 shadow-md border border-gray-200 dark:border-gray-800">
+                <div className="bg-black bg-opacity-70 backdrop-blur-md rounded-xl p-6 md:p-8 shadow-md border border-gray-800">
                   <div className="md:hidden mb-4">
                     <span className="bg-primary-500 text-white text-sm px-3 py-1 rounded-full font-semibold">
                       {release.version}
                     </span>
                   </div>
                   
-                  <h2 className="text-2xl md:text-3xl font-space font-semibold mb-2">
+                  <h2 className="text-2xl md:text-3xl font-space font-semibold mb-2 text-white">
                     {release.date}
                   </h2>
                   
                   {release.highlights && (
                     <div className="mb-6 mt-4">
-                      <h3 className="text-lg font-medium text-primary-600 dark:text-primary-400 mb-3">
+                      <h3 className="text-lg font-medium text-primary-400 mb-3">
                         Key Highlights:
                       </h3>
                       <ul className="space-y-2">
                         {release.highlights.map((highlight, i) => (
                           <li key={i} className="flex items-start">
                             <span className="text-primary-500 mr-2">★</span>
-                            <span className="text-gray-700 dark:text-gray-300">{highlight}</span>
+                            <span className="text-gray-300">{highlight}</span>
                           </li>
                         ))}
                       </ul>
                     </div>
                   )}
                   
-                  <Separator className="my-4" />
+                  <Separator className="my-4 bg-gray-700" />
                   
-                  <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-3">
+                  <h3 className="text-lg font-medium text-gray-100 mb-3">
                     Changes:
                   </h3>
                   <ul className="space-y-2">
                     {release.changes.map((change, i) => (
                       <li key={i} className="flex items-start">
                         <span className="text-primary-500 mr-2">•</span>
-                        <span className="text-gray-700 dark:text-gray-300">{change}</span>
+                        <span className="text-gray-300">{change}</span>
                       </li>
                     ))}
                   </ul>
@@ -144,11 +163,14 @@ export default function Changelog() {
             ))}
           </div>
           
-          <div className="mt-16 text-center text-gray-500 dark:text-gray-400 italic">
+          <div className="mt-16 text-center text-gray-400 italic">
             <p>NumberLaunch is continuously improving. Check back often for updates!</p>
           </div>
         </div>
       </div>
-    </Layout>
+      
+      {/* Footer */}
+      <Footer />
+    </SpaceBg>
   );
 }

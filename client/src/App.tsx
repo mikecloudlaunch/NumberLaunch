@@ -24,6 +24,11 @@ function Router() {
     window.scrollTo(0, 0);
   }, [location]);
   
+  // Changelog page uses its own layout with SpaceBg
+  if (location === "/changelog") {
+    return <Changelog />;
+  }
+  
   return (
     <Switch>
       <Route path="/" component={Home} />
@@ -32,7 +37,6 @@ function Router() {
       <Route path="/privacy" component={Privacy} />
       <Route path="/terms" component={Terms} />
       <Route path="/contact" component={Contact} />
-      <Route path="/changelog" component={Changelog} />
       <Route component={NotFound} />
     </Switch>
   );
