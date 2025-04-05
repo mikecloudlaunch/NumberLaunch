@@ -308,15 +308,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const taxBracketSample = [
         { bracket: "$0 - $18,200", amount: 0, rate: 0 },
         { bracket: "$18,201 - $45,000", amount: 5092, rate: 0.19 },
-        { bracket: "$45,001 - $120,000", amount: 16250, rate: 0.325 },
-        { bracket: "$120,001 - $180,000", amount: 29467, rate: 0.37 },
-        { bracket: "$180,001+", amount: 51667, rate: 0.45 }
+        { bracket: "$45,001 - $135,000", amount: 32092, rate: 0.30 },
+        { bracket: "$135,001 - $190,000", amount: 52467, rate: 0.37 },
+        { bracket: "$190,001+", amount: 52467, rate: 0.45 }
       ];
       
       const formattedBrackets = taxBracketSample.map(bracket => {
         let rateDisplay = "";
-        if (bracket.rate === 0.325) {
-          rateDisplay = "32.5c";
+        if (bracket.rate === 0.30) {
+          rateDisplay = "30.0c";
         } else if (bracket.rate === 0) {
           rateDisplay = "0c";
         } else if (bracket.rate === 0.19) {

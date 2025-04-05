@@ -19,7 +19,7 @@ const faqItems: FAQItem[] = [
   },
   {
     question: "What tax year do these calculations apply to?",
-    answer: "The calculator uses tax rates and thresholds for the 2022-2023 Australian financial year. We update our calculator each year when new rates are released."
+    answer: "The calculator uses tax rates and thresholds for the 2024-2025 Australian financial year, reflecting the latest tax changes including the Stage 3 tax cuts implemented in 2024."
   },
   {
     question: "How is superannuation calculated?",
