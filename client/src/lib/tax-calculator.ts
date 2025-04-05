@@ -73,16 +73,27 @@ export const calculateTax = (inputs: IncomeInputs): TaxResult => {
     // For tax breakdown display
     let remainingIncome = taxableIncome;
     for (const bracket of TAX_BRACKETS) {
-      if (remainingIncome > bracket.min) {
-        const taxableAmount = Math.min(remainingIncome, bracket.max) - bracket.min;
-        if (taxableAmount > 0) {
-          const taxForBracket = taxableAmount * bracket.rate;
+      // Check if income is at least at the bracket's minimum
+      if (taxableIncome > bracket.min) {
+        // Calculate the amount of income in this bracket
+        const amountInBracket = Math.min(taxableIncome, bracket.max) - bracket.min;
+        
+        if (amountInBracket > 0) {
+          const taxForBracket = amountInBracket * bracket.rate;
+          
+          // Format the bracket label
+          let bracketLabel;
+          if (bracket.max === Infinity) {
+            bracketLabel = `$${bracket.min.toLocaleString()} and over`;
+          } else {
+            bracketLabel = `$${bracket.min.toLocaleString()} - $${bracket.max.toLocaleString()}`;
+          }
+          
           taxByBracket.push({
-            bracket: `$${bracket.min.toLocaleString()} - $${bracket.max === Infinity ? '+' : bracket.max.toLocaleString()}`,
+            bracket: bracketLabel,
             amount: taxForBracket,
             rate: bracket.rate * 100
           });
-          remainingIncome -= taxableAmount;
         }
       }
     }
