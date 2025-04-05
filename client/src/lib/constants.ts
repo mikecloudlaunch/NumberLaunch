@@ -1,4 +1,5 @@
 // Australian Tax Brackets for 2024-2025
+// Base amounts calculated according to ATO formula for 2024-2025
 export const TAX_BRACKETS = [
   { min: 0, max: 18200, rate: 0, base: 0 },
   { min: 18201, max: 45000, rate: 0.19, base: 0 },

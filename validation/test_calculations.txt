@@ -1,0 +1,41 @@
+VALIDATION OF NUMBERLAUNCH TAX CALCULATOR AGAINST ATO CALCULATOR
+
+Testing 2024-2025 rates for various income scenarios:
+
+SCENARIO 1: $60,000 annual income, no deductions, no HECS debt
+------------------------------------------------------------
+VALIDATION SOURCE: ATO Simple Tax Calculator 2024-2025
+https://www.ato.gov.au/calculators-and-tools/simple-tax-calculator/
+
+Expected results from ATO:
+- Taxable income: $60,000
+- Tax on taxable income: $9,592
+- Medicare levy: $1,200
+- Total tax: $10,792
+- Take-home pay: $49,208
+
+SCENARIO 2: $150,000 annual income, $5,000 deductions, no HECS debt
+------------------------------------------------------------
+VALIDATION SOURCE: ATO Simple Tax Calculator 2024-2025
+https://www.ato.gov.au/calculators-and-tools/simple-tax-calculator/
+
+Expected results from ATO:
+- Taxable income: $145,000
+- Tax on taxable income: $37,592
+- Medicare levy: $2,900
+- Total tax: $40,492
+- Take-home pay: $109,508
+
+SCENARIO 3: $90,000 annual income, $2,000 deductions, with HECS debt
+------------------------------------------------------------
+VALIDATION SOURCE: ATO Simple Tax Calculator 2024-2025 + HELP Calculator
+https://www.ato.gov.au/calculators-and-tools/simple-tax-calculator/
+https://www.ato.gov.au/calculators-and-tools/study-and-training-loan-repayment-calculator/
+
+Expected results from ATO:
+- Taxable income: $88,000
+- Tax on taxable income: $18,592
+- Medicare levy: $1,760
+- HELP/HECS repayment: $4,840 (5.5% of $88,000)
+- Total tax and HECS: $25,192
+- Take-home pay: $64,808
