@@ -13,7 +13,11 @@ async function verifyRecaptcha(token: string): Promise<boolean> {
     // for development environments
     const recaptchaSecret = process.env.RECAPTCHA_SECRET_KEY || '6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe';
     
-    console.log('Verifying reCAPTCHA with token length:', token.length);
+    // Enhanced debug logging
+    console.log('=== RECAPTCHA DEBUG ===');
+    console.log('Environment:', process.env.NODE_ENV);
+    console.log('Using key ending with:', recaptchaSecret.slice(-5));
+    console.log('Token length:', token.length);
     
     const response = await fetch('https://www.google.com/recaptcha/api/siteverify', {
       method: 'POST',
@@ -23,9 +27,20 @@ async function verifyRecaptcha(token: string): Promise<boolean> {
       body: `secret=${recaptchaSecret}&response=${token}`,
     });
 
-    const data = await response.json() as { success: boolean };
+    const data = await response.json() as { 
+      success: boolean;
+      'error-codes'?: string[];
+      challenge_ts?: string;
+      hostname?: string;
+    };
     
-    console.log('reCAPTCHA verification result:', data);
+    // Log detailed verification result
+    console.log('reCAPTCHA verification full result:', JSON.stringify(data));
+    console.log('Hostname verification:', data.hostname);
+    if (!data.success && data['error-codes']) {
+      console.log('Error codes:', data['error-codes']);
+    }
+    console.log('=== END RECAPTCHA DEBUG ===');
     
     return data.success === true;
   } catch (error) {
