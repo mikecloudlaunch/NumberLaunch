@@ -1,79 +1,53 @@
-// This is a special build script for Vercel
+// Enhanced script to invoke the build-vercel.js script for Vercel deployment
+// This script is designed to provide better debugging and error handling
 
 const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
-// Run the build command for the frontend first
-console.log('Building frontend...');
-execSync('vite build', { stdio: 'inherit' });
+console.log("=== VERCEL BUILD PROCESS STARTING ===");
+console.log("Current directory:", process.cwd());
+console.log("Node version:", process.version);
+console.log("Files in current directory:", fs.readdirSync('.').join(', '));
 
-// Make sure the output directory exists
-if (!fs.existsSync('dist')) {
-  console.log('Creating dist directory...');
-  fs.mkdirSync('dist');
-}
-
-// Build the backend
-console.log('Building backend...');
-execSync('esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist', { stdio: 'inherit' });
-
-// Create the api directory if it doesn't exist
-if (!fs.existsSync('api')) {
-  console.log('Creating api directory...');
-  fs.mkdirSync('api');
-}
-
-// Create a serverless function entry point
-console.log('Creating serverless function entry point...');
-const serverlessFunction = `
-// Vercel Serverless Function
-import express from 'express';
-import { registerRoutes } from '../server/routes.js';
-import path from 'path';
-
-// Create Express app for serverless function
-const app = express();
-app.use(express.json());
-
-// Register API routes
-registerRoutes(app);
-
-// This file acts as an entry point for Vercel serverless functions
-export default function handler(req, res) {
-  // Forward the request to our Express app
-  return new Promise((resolve) => {
-    app(req, res, () => {
-      resolve();
-    });
-  });
-}
-`;
-
-fs.writeFileSync(path.join('api', 'index.js'), serverlessFunction);
-
-// Log the contents of the dist directory to verify what's there
-console.log('Checking build outputs...');
 try {
-  console.log('Contents of dist directory:');
-  const distContents = fs.readdirSync('dist');
-  console.log(distContents);
-  
-  if (fs.existsSync('dist/index.html')) {
-    console.log('✅ index.html exists in dist folder');
-  } else {
-    console.log('❌ index.html MISSING from dist folder');
+  // Make sure we have the build script
+  if (!fs.existsSync('build-vercel.js')) {
+    console.error('ERROR: build-vercel.js not found!');
+    process.exit(1);
   }
-  
-  if (fs.existsSync('dist/assets')) {
-    console.log('✅ assets directory exists');
-    console.log('Assets contents:');
-    console.log(fs.readdirSync('dist/assets'));
-  } else {
-    console.log('❌ assets directory MISSING');
-  }
-} catch (err) {
-  console.error('Error checking build outputs:', err);
-}
 
-console.log('Build completed successfully!');
+  // Run the main build script
+  console.log("\nRunning build-vercel.js...");
+  execSync('node build-vercel.js', { stdio: 'inherit' });
+  
+  // Verify dist directory was created
+  if (!fs.existsSync('dist')) {
+    console.error('ERROR: dist directory was not created!');
+    process.exit(1);
+  }
+  
+  // Copy the api directory content to dist/api for completeness
+  if (fs.existsSync('api')) {
+    console.log("\nCopying API files to dist/api...");
+    if (!fs.existsSync('dist/api')) {
+      fs.mkdirSync('dist/api', { recursive: true });
+    }
+    
+    const apiFiles = fs.readdirSync('api');
+    for (const file of apiFiles) {
+      if (file.endsWith('.js')) {
+        fs.copyFileSync(
+          path.join('api', file),
+          path.join('dist/api', file)
+        );
+        console.log(`Copied api/${file} to dist/api/${file}`);
+      }
+    }
+  }
+  
+  console.log("\n=== VERCEL BUILD PROCESS COMPLETED SUCCESSFULLY ===");
+} catch (error) {
+  console.error('\nERROR running build script:', error);
+  process.exit(1);
+}

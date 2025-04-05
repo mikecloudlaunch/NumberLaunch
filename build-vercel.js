@@ -12,7 +12,46 @@ try {
   
   // Build the server files
   console.log("Building server files with esbuild...");
-  execSync('esbuild server/**/*.ts shared/**/*.ts --platform=node --packages=external --bundle --format=esm --outdir=dist/server', { stdio: 'inherit' });
+  
+  // Create necessary directories
+  if (!fs.existsSync('dist/server')) {
+    fs.mkdirSync('dist/server', { recursive: true });
+  }
+  if (!fs.existsSync('dist/shared')) {
+    fs.mkdirSync('dist/shared', { recursive: true });
+  }
+  
+  // Copy JS bridge files directly (they're already JavaScript)
+  console.log("Copying JavaScript bridge files...");
+  
+  try {
+    // Copy JS files for module resolution
+    if (fs.existsSync('server/storage.js')) {
+      fs.copyFileSync('server/storage.js', 'dist/server/storage.js');
+      console.log("Copied server/storage.js");
+    }
+    
+    if (fs.existsSync('server/routes.js')) {
+      fs.copyFileSync('server/routes.js', 'dist/server/routes.js');
+      console.log("Copied server/routes.js");
+    }
+    
+    if (fs.existsSync('server/email.js')) {
+      fs.copyFileSync('server/email.js', 'dist/server/email.js');
+      console.log("Copied server/email.js");
+    }
+    
+    if (fs.existsSync('shared/schema.js')) {
+      fs.copyFileSync('shared/schema.js', 'dist/shared/schema.js');
+      console.log("Copied shared/schema.js");
+    }
+  } catch (err) {
+    console.error("Error copying bridge files:", err);
+  }
+  
+  // Build TypeScript files
+  console.log("Building TypeScript files with esbuild...");
+  execSync('esbuild server/**/*.ts shared/**/*.ts --platform=node --packages=external --bundle --format=esm --outdir=dist', { stdio: 'inherit' });
 
   // Check if dist directory exists
   if (!fs.existsSync('dist')) {

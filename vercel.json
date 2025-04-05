@@ -1,18 +1,7 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "api/index.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "build-vercel.js",
-      "use": "@vercel/node",
-      "config": {
-        "distDir": "dist"
-      }
-    }
-  ],
+  "buildCommand": "node build-vercel.js",
+  "outputDirectory": "dist",
   "routes": [
     { 
       "src": "/api(.*)", 
@@ -23,7 +12,7 @@
     },
     { 
       "src": "/(.*)", 
-      "dest": "/api/index.js" 
+      "dest": "/index.html" 
     }
   ],
   "github": {
@@ -39,5 +28,11 @@
   },
   "env": {
     "NODE_ENV": "production"
+  },
+  "functions": {
+    "api/index.js": {
+      "memory": 1024,
+      "maxDuration": 10
+    }
   }
 }
