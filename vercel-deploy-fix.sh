@@ -14,7 +14,7 @@ git config --global user.email "mike@cloudlaunch.au"
 
 # 2. Add all the changes to git
 echo "Adding deployment changes to git..."
-git add build-vercel.js vercel-build.js server/storage.js server/email.js server/routes.js shared/schema.js vercel.json api/index.js
+git add build-vercel.js vercel-build.js server/storage.js server/email.js server/routes.js shared/schema.js vercel.json api/index.js build-vercel.package.json
 
 # 3. Commit with the proper author
 echo "Committing changes with proper author information..."

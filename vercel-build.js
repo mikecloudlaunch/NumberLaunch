@@ -1,9 +1,9 @@
 // Enhanced script to invoke the build-vercel.js script for Vercel deployment
-// This script is designed to provide better debugging and error handling
+// Using ES modules syntax for Vercel compatibility
 
-const { execSync } = require('child_process');
-const fs = require('fs');
-const path = require('path');
+import { execSync } from 'child_process';
+import fs from 'fs';
+import path from 'path';
 
 console.log("=== VERCEL BUILD PROCESS STARTING ===");
 console.log("Current directory:", process.cwd());
@@ -17,9 +17,10 @@ try {
     process.exit(1);
   }
 
-  // Run the main build script
-  console.log("\nRunning build-vercel.js...");
-  execSync('node build-vercel.js', { stdio: 'inherit' });
+  // Run the main build script with ESM mode enabled
+  console.log("\nRunning build-vercel.js as ESM module...");
+  // Use --experimental-json-modules flag to ensure JSON import works
+  execSync('node --experimental-json-modules build-vercel.js', { stdio: 'inherit' });
   
   // Verify dist directory was created
   if (!fs.existsSync('dist')) {

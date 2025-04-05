@@ -1,7 +1,8 @@
 // Custom build script for Vercel deployment
-const { execSync } = require('child_process');
-const fs = require('fs');
-const path = require('path');
+// Using ES modules syntax for Vercel compatibility
+import { execSync } from 'child_process';
+import fs from 'fs';
+import path from 'path';
 
 console.log("Starting custom build process...");
 
