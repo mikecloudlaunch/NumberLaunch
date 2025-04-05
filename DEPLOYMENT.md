@@ -1,92 +1,122 @@
 # NumberLaunch Deployment Guide
 
-This guide walks you through deploying the NumberLaunch application to Vercel using GitHub.
+This guide addresses specific issues with deploying NumberLaunch to Vercel and provides solutions.
 
-## Prerequisites
+## Key Deployment Issues & Solutions
 
-1. A GitHub account
-2. A Vercel account
-3. Google reCAPTCHA keys
-4. SendGrid API key
+### 1. Git Author Verification
 
-## GitHub Setup
+**Problem**: Commits made in Replit may have different author information than your GitHub account, causing verification issues.
 
-1. Create a new GitHub repository
-2. Push your code to the repository
-3. Make sure that all changes are on the main branch for deployment
-4. Set the correct author information to ensure Vercel can verify your commits:
-   ```bash
-   git config --local user.name "Mike CloudLaunch"
-   git config --local user.email "mike@cloudlaunch.au"
-   ```
+**Solution**:
+- Make critical deployment-related changes directly through GitHub web interface
+- These commits will be automatically verified with your GitHub profile picture
 
-## Vercel Deployment
+### 2. Ignored Build Step Problem
 
-1. Log in to Vercel and click "Add New Project"
+**Problem**: The deployment fails with an error: "Deployment has been canceled as a result of running the command defined in the 'Ignored Build Step' setting."
+
+**Solution**:
+- Remove the `ignoreCommand` parameter from vercel.json
+- Configure Vercel project settings to use automatic detection for ignored builds
+
+### 3. Deployment Project Setup
+
+For a successful deployment:
+
+1. In the Vercel dashboard, create a new project
 2. Import your GitHub repository
-3. Configure the project with the following settings:
+3. Configure the following settings:
    - Build Command: `node build-vercel.js`
    - Output Directory: `dist`
-   - Framework Preset: `Other`
-
-4. Configure the advanced build settings:
    - Root Directory: `.` (default)
    - Install Command: `npm install`
 
-5. Add Environment Variables:
+4. Add these environment variables:
+   - `NODE_ENV`: `production`
    - `VITE_RECAPTCHA_SITE_KEY`: Your Google reCAPTCHA site key
    - `RECAPTCHA_SECRET_KEY`: Your Google reCAPTCHA secret key
    - `SENDGRID_API_KEY`: Your SendGrid API key
-   - `NODE_ENV`: `production`
 
-6. Click "Deploy"
+5. Deploy with these settings
 
-## Important Deployment Files
+## Key Deployment Files
 
-The deployment relies on these key files:
+The deployment relies on three critical files:
 
-1. **vercel.json** - Contains the routing configuration for the Vercel platform
-2. **build-vercel.js** - Custom build script that creates distribution files and the serverless function
-3. **api/index.js** - The serverless function that handles API requests and serves static content
+1. **vercel.json** - Configures routing and project settings
+```json
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/index.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "build-vercel.js",
+      "use": "@vercel/node",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
+  "routes": [
+    { 
+      "src": "/api(.*)", 
+      "dest": "/api/index.js" 
+    },
+    {
+      "handle": "filesystem"
+    },
+    { 
+      "src": "/(.*)", 
+      "dest": "/api/index.js" 
+    }
+  ],
+  "github": {
+    "silent": false,
+    "autoJobCancelation": false,
+    "enabled": true
+  },
+  "git": {
+    "deploymentEnabled": {
+      "main": true,
+      "NL": true
+    }
+  },
+  "env": {
+    "NODE_ENV": "production"
+  }
+}
+```
 
-## Troubleshooting Deployment
+2. **build-vercel.js** - Custom build script that creates the distribution files
+3. **api/index.js** - Serverless function that handles API requests and serves static content
 
-If you encounter issues during deployment:
+## Troubleshooting Tips
 
-1. **Raw code displayed instead of UI**: 
-   - Ensure `NODE_ENV` is set to `production` in your Vercel environment variables
-   - Check the routing in vercel.json (it should direct all non-API requests to the api/index.js handler)
-   - Verify that the dist directory is being properly created during build
+If you encounter issues:
 
-2. **API routes not working**: 
-   - Verify that the api/index.js file is correctly configured to handle serverless function requests
-   - Check the console logs in the Vercel deployment for any errors
+1. **Check Deployment Logs**: Look for errors in the Vercel deployment logs
+2. **Verify Git Commits**: Ensure commits have green checkmarks or profile pictures in GitHub
+3. **Test Locally**: Run `node build-vercel.js` locally to test the build process
+4. **Check Environment Variables**: Verify all required environment variables are set
+5. **Clean Build Cache**: Try clearing the Vercel build cache and redeploying
 
-3. **Build fails**: 
-   - Review the build logs in Vercel to identify specific errors
-   - The custom build-vercel.js script will log detailed information about the build process
-   - Make sure all dependencies are properly installed
+## Quick Fix for Canceled Deployments
 
-4. **Commit author verification**: 
-   - Ensure your git user.email is verified with Vercel/GitHub to prevent deployment permission issues
-   - If needed, add your email to the GitHub repository's allowed committers
+If deployment is still being canceled:
 
-## Verifying Deployment
+1. Check Vercel project settings for any "Ignored Build Step" configuration
+2. Remove any custom commands in this setting, or set it to "None"
+3. In vercel.json, ensure there is no `ignoreCommand` parameter
 
-After deployment is complete:
+## Releasing Updates
 
-1. Click on the generated URL to verify the application is working
-2. Test the calculator functionality
-3. Test the contact form with reCAPTCHA
-4. Verify PDF generation is working
+For future updates:
 
-## Custom Domain Setup
-
-If you want to use a custom domain:
-
-1. Go to your project settings in Vercel
-2. Navigate to the "Domains" section
-3. Add your domain and follow the instructions to configure DNS
-4. For numberlaunch.com, you'll need to add DNS records at your registrar:
-   - Type: A, Name: @, Value: 76.76.21.21
-   - Type: CNAME, Name: www, Value: cname.vercel-dns.com
+1. Make changes to your codebase
+2. For critical files (vercel.json, build-vercel.js, api/index.js), edit directly through GitHub
+3. For all other files, commit as usual
+4. Vercel will automatically deploy changes from the main branch
