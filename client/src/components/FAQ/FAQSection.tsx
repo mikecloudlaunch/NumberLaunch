@@ -19,7 +19,7 @@ const faqItems: FAQItem[] = [
   },
   {
     question: "What tax year do these calculations apply to?",
-    answer: "The calculator uses tax rates and thresholds for the 2024-2025 Australian financial year, reflecting the latest tax changes including the Stage 3 tax cuts implemented in 2024."
+    answer: "The calculator uses tax rates and thresholds for the 2024-2025 Australian financial year, reflecting the latest tax changes including the Stage 3 tax cuts implemented in 2024. The current tax brackets are: $0-$18,200 (0%), $18,201-$45,000 (16%), $45,001-$135,000 (30%), $135,001-$190,000 (37%), and $190,001+ (45%)."
   },
   {
     question: "How is superannuation calculated?",
