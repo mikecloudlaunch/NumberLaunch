@@ -11,7 +11,7 @@ Australian income calculator web application with space theme. Provides accurate
 - Space-themed dark mode design
 - PDF report generation
 - Responsive design
-- Contact form with reCAPTCHA protection
+- Contact form with reCAPTCHA protection 
 
 ## Technology Stack
 
