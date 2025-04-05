@@ -70,7 +70,11 @@ const Footer: React.FC = () => {
                   HECS/HELP Info
                 </a>
               </li>
-
+              <li>
+                <Link href="/changelog" className="hover:text-white transition-colors duration-200">
+                  Changelog
+                </Link>
+              </li>
               <li>
                 <Link href="/contact" className="hover:text-white transition-colors duration-200">Contact Support</Link>
               </li>
