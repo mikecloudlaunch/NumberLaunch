@@ -11,7 +11,7 @@ const AboutPage: React.FC = () => {
         <div className="absolute inset-0 z-0 bg-gradient-to-b from-indigo-900/20 to-transparent"></div>
         <div className="max-w-5xl mx-auto text-center relative z-10">
           <h1 className="text-4xl md:text-5xl font-bold font-space text-white mb-6">
-            About <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-indigo-400">NumberLaunch</span>
+          <span className="text-gray-300 bg-clip-text bg-gradient-to-r from-primary-500 to-indigo-400">About NumberLaunch</span>
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
             The space-themed tax calculator crafted for Australians seeking clarity with their financial planning.

@@ -73,7 +73,7 @@ export default function Changelog() {
         <div className="max-w-5xl mx-auto text-center relative z-10">
           <h1 className="text-4xl md:text-5xl font-bold font-space text-white mb-6 text-center w-full">
             <span className="text-center block">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-indigo-400">Changelog</span>
+              <span className="text-gray-300 bg-clip-text bg-gradient-to-r from-primary-500 to-indigo-400">Changelog</span>
             </span>
           </h1>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8 text-center">
