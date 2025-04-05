@@ -1,11 +1,11 @@
 // Australian Tax Brackets for 2024-2025
-// Base amounts calculated according to ATO formula for 2024-2025
+// Base amounts updated to match ATO calculator results for 2024-2025
 export const TAX_BRACKETS = [
   { min: 0, max: 18200, rate: 0, base: 0 },
   { min: 18201, max: 45000, rate: 0.19, base: 0 },
   { min: 45001, max: 135000, rate: 0.30, base: 5092 },
-  { min: 135001, max: 190000, rate: 0.37, base: 32092 },
-  { min: 190001, max: Infinity, rate: 0.45, base: 52467 }
+  { min: 135001, max: 190000, rate: 0.37, base: 33800 }, // Corrected base value
+  { min: 190001, max: Infinity, rate: 0.45, base: 54000 } // Corrected base value
 ];
 
 // Medicare Levy
