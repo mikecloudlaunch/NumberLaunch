@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 const AboutPage: React.FC = () => {
   return (
     <div className="bg-gray-900 min-h-screen pb-16">
-      {/* Hero Section */}
+      {/* Hero Section woo */}
       <div className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gray-900">
         <div className="absolute inset-0 z-0 bg-gradient-to-b from-indigo-900/20 to-transparent"></div>
         <div className="max-w-5xl mx-auto text-center relative z-10">
