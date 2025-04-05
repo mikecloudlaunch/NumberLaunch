@@ -27,8 +27,18 @@
     }
   ],
   "github": {
-    "silent": false
+    "silent": false,
+    "autoJobCancelation": false,
+    "enabled": true
   },
+  "git": {
+    "deploymentEnabled": {
+      "main": true,
+      "NL": true
+    },
+    "core.commitSigningRequired": false
+  },
+  "ignoreCommand": "echo 'Not running any ignore commands'",
   "env": {
     "NODE_ENV": "production"
   }
