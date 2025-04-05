@@ -9,6 +9,10 @@ try {
   // Build the frontend
   console.log("Building frontend with Vite...");
   execSync('vite build', { stdio: 'inherit' });
+  
+  // Build the server files
+  console.log("Building server files with esbuild...");
+  execSync('esbuild server/**/*.ts shared/**/*.ts --platform=node --packages=external --bundle --format=esm --outdir=dist/server', { stdio: 'inherit' });
 
   // Check if dist directory exists
   if (!fs.existsSync('dist')) {
