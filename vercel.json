@@ -30,5 +30,8 @@
       "src": "/(.*)", 
       "dest": "/dist/index.html" 
     }
-  ]
+  ],
+  "github": {
+    "silent": false
+  }
 }
