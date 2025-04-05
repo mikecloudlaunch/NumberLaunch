@@ -39,7 +39,7 @@ export const HECS_HELP_THRESHOLDS = [
 // Default values for the calculator
 export const DEFAULT_VALUES = {
   grossIncome: 0,
-  superRate: 11, // Keeping superannuation at 11% as that's the legal minimum
+  superRate: 11.5, // Updated to current superannuation guarantee rate (July 2023)
   taxDeductions: 0,
   hasHecsHelp: false,
   hecsDebtTotal: 0,

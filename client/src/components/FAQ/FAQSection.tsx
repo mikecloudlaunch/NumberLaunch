@@ -23,7 +23,7 @@ const faqItems: FAQItem[] = [
   },
   {
     question: "How is superannuation calculated?",
-    answer: "Superannuation is calculated as a percentage of your gross income. The default employer contribution rate is 11% (as of July 2023), but you can adjust this rate if your employer contributes a different amount or if you make additional voluntary contributions."
+    answer: "Superannuation is calculated as a percentage of your gross income. The default employer contribution rate is 11.5% (as of July 2023), but you can adjust this rate if your employer contributes a different amount or if you make additional voluntary contributions."
   },
   {
     question: "How are HECS/HELP repayments calculated?",
