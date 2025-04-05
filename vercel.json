@@ -19,8 +19,16 @@
       "dest": "/api/index.js" 
     },
     { 
+      "src": "/(assets|scripts|static)/(.*)",
+      "dest": "/dist/$1/$2"
+    },
+    { 
+      "src": "/(.*\\.(js|css|ico|png|jpg|svg|pdf|json|txt))",
+      "dest": "/dist/$1"
+    },
+    { 
       "src": "/(.*)", 
-      "dest": "/$1" 
+      "dest": "/dist/index.html" 
     }
   ]
 }
