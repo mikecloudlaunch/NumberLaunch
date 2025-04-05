@@ -71,10 +71,10 @@ export default function Changelog() {
       <div className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gray-900">
         <div className="absolute inset-0 z-0 bg-gradient-to-b from-indigo-900/20 to-transparent"></div>
         <div className="max-w-5xl mx-auto text-center relative z-10">
-          <h1 className="text-4xl md:text-5xl font-bold font-space text-white mb-6">
+          <h1 className="text-4xl md:text-5xl font-bold font-space text-white mb-6 text-center">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-500 to-indigo-400">NumberLaunch</span> Changelog
           </h1>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8 text-center">
             Track our journey as we improve and expand the NumberLaunch calculator.
           </p>
         </div>
