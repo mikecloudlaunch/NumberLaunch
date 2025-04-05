@@ -1,4 +1,4 @@
-# NumberLaunch Deployment Guide 
+# NumberLaunch Deployment Guide  
 
 This guide addresses specific issues with deploying NumberLaunch to Vercel and provides solutions.
 
