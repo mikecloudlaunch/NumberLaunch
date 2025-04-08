@@ -19,11 +19,11 @@ const faqItems: FAQItem[] = [
   },
   {
     question: "What tax year do these calculations apply to?",
-    answer: "The calculator uses tax rates and thresholds for the 2022-2023 Australian financial year. We update our calculator each year when new rates are released."
+    answer: "The calculator uses tax rates and thresholds for the 2024-2025 Australian financial year, reflecting the latest tax changes including the Stage 3 tax cuts implemented in 2024. The current tax brackets are: $0-$18,200 (0%), $18,201-$45,000 (16%), $45,001-$135,000 (30%), $135,001-$190,000 (37%), and $190,001+ (45%)."
   },
   {
     question: "How is superannuation calculated?",
-    answer: "Superannuation is calculated as a percentage of your gross income. The default employer contribution rate is 11% (as of July 2023), but you can adjust this rate if your employer contributes a different amount or if you make additional voluntary contributions."
+    answer: "Superannuation is calculated as a percentage of your gross income. The default employer contribution rate is 11.5% (as of July 2023), but you can adjust this rate if your employer contributes a different amount or if you make additional voluntary contributions."
   },
   {
     question: "How are HECS/HELP repayments calculated?",

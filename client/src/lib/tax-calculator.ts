@@ -38,52 +38,85 @@ export const calculateTax = (inputs: IncomeInputs): TaxResult => {
   // Calculate taxable income (gross income minus deductions)
   const taxableIncome = Math.max(0, inputs.grossIncome - inputs.taxDeductions);
   
-  // Calculate income tax using progressive tax brackets
+  // Calculate income tax using ATO's formula (base amount + marginal rate * excess)
   let incomeTax = 0;
   let marginalTaxRate = 0;
   const taxByBracket: Array<{bracket: string, amount: number, rate: number}> = [];
   
+  // Find applicable bracket
+  let applicableBracket = TAX_BRACKETS[0];
   for (const bracket of TAX_BRACKETS) {
-    if (taxableIncome > bracket.min) {
-      const taxableAmount = Math.min(taxableIncome, bracket.max) - bracket.min;
-      if (taxableAmount > 0) {
-        const taxForBracket = taxableAmount * bracket.rate;
-        taxByBracket.push({
-          bracket: `$${bracket.min.toLocaleString()} - $${bracket.max === Infinity ? '+' : bracket.max.toLocaleString()}`,
-          amount: taxForBracket,
-          rate: bracket.rate * 100  // Convert to cents per dollar (e.g., 0.19 becomes 19 cents)
-        });
-        incomeTax += taxForBracket;
-      }
-      
-      // Update marginal tax rate if income falls within this bracket
-      if (taxableIncome <= bracket.max) {
-        marginalTaxRate = bracket.rate;
+    if (taxableIncome >= bracket.min) {
+      applicableBracket = bracket;
+    } else {
+      break;
+    }
+  }
+  
+  // Use base amount + rate * (income - min) formula
+  if (taxableIncome > 0) {
+    incomeTax = applicableBracket.base + 
+                (applicableBracket.rate * (taxableIncome - applicableBracket.min));
+    // Round to match ATO precision
+    incomeTax = Math.round(incomeTax);
+    marginalTaxRate = applicableBracket.rate;
+    
+    // For tax breakdown display
+    let remainingIncome = taxableIncome;
+    for (const bracket of TAX_BRACKETS) {
+      // Check if income is at least at the bracket's minimum
+      if (taxableIncome > bracket.min) {
+        // Calculate the amount of income in this bracket
+        const amountInBracket = Math.min(taxableIncome, bracket.max) - bracket.min;
+        
+        if (amountInBracket > 0) {
+          const taxForBracket = amountInBracket * bracket.rate;
+          
+          // Format the bracket label
+          let bracketLabel;
+          if (bracket.max === Infinity) {
+            bracketLabel = `$${bracket.min.toLocaleString()} and over`;
+          } else {
+            bracketLabel = `$${bracket.min.toLocaleString()} - $${bracket.max.toLocaleString()}`;
+          }
+          
+          taxByBracket.push({
+            bracket: bracketLabel,
+            amount: taxForBracket,
+            rate: bracket.rate * 100
+          });
+        }
       }
     }
   }
   
   // Calculate Medicare levy (2% of taxable income above threshold)
-  const medicareTax = taxableIncome > MEDICARE_LEVY_THRESHOLD 
-    ? taxableIncome * MEDICARE_LEVY_RATE 
-    : 0;
+  let medicareTax = 0;
+  if (taxableIncome > MEDICARE_LEVY_THRESHOLD) {
+    medicareTax = taxableIncome * MEDICARE_LEVY_RATE;
+    // Round to match ATO precision
+    medicareTax = Math.round(medicareTax);
+  }
   
-  // Calculate HECS/HELP repayments
+  // Calculate HECS/HELP repayments based on taxable income (not gross income)
   let hecsRepayment = 0;
   if (inputs.hasHecsHelp && inputs.hecsDebtTotal > 0) {
     for (const threshold of HECS_HELP_THRESHOLDS) {
-      if (inputs.grossIncome >= threshold.min && inputs.grossIncome <= threshold.max) {
-        hecsRepayment = inputs.grossIncome * threshold.rate;
+      if (taxableIncome >= threshold.min && taxableIncome <= threshold.max) {
+        hecsRepayment = taxableIncome * threshold.rate;
+        // Round to match ATO precision
+        hecsRepayment = Math.round(hecsRepayment);
         break;
       }
     }
   }
   
   // Calculate total tax
-  const totalTax = incomeTax + medicareTax + hecsRepayment;
+  let totalTax = incomeTax + medicareTax + hecsRepayment;
   
   // Calculate take-home income
-  const takeHomeIncome = inputs.grossIncome - totalTax;
+  let takeHomeIncome = taxableIncome - totalTax;
+  
   const monthlyTakeHome = takeHomeIncome / 12;
   
   // Calculate superannuation (employer contributions + additional voluntary contributions)
@@ -95,7 +128,7 @@ export const calculateTax = (inputs: IncomeInputs): TaxResult => {
   const totalPackage = inputs.grossIncome + superannuation;
   
   // Calculate effective tax rate
-  const effectiveTaxRate = totalTax / inputs.grossIncome;
+  const effectiveTaxRate = totalTax / taxableIncome;
   
   return {
     grossIncome: inputs.grossIncome,

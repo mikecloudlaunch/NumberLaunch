@@ -29,19 +29,28 @@ export default function Contact() {
   };
   
   const handleCaptchaChange = (token: string | null) => {
+    // Enhanced debugging for reCAPTCHA
+    console.log('=== RECAPTCHA CLIENT DEBUG ===');
+    console.log('reCAPTCHA callback triggered');
+    console.log('Token received:', token ? `${token.substring(0, 10)}...` : 'null');
+    console.log('Site key being used:', import.meta.env.VITE_RECAPTCHA_SITE_KEY || '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI');
+    
     if (token) {
+      console.log('Setting captchaVerified to true');
       setCaptchaVerified(true);
       setFormData(prev => ({
         ...prev,
         captchaToken: token
       }));
     } else {
+      console.log('Setting captchaVerified to false');
       setCaptchaVerified(false);
       setFormData(prev => ({
         ...prev,
         captchaToken: ''
       }));
     }
+    console.log('=== END RECAPTCHA CLIENT DEBUG ===');
   };
   
   const resetCaptcha = () => {

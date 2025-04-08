@@ -70,7 +70,7 @@ const TaxBreakdownTable: React.FC<TaxBreakdownTableProps> = ({ taxResult }) => {
             {taxResult.taxByBracket.map((bracket, index) => (
               <tr key={index}>
                 <td className="px-6 py-3 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">{bracket.bracket}</td>
-                <td className="px-6 py-3 whitespace-nowrap text-sm text-right text-gray-700 dark:text-gray-300">{bracket.rate === 32.5 ? '32.5¢' : bracket.rate === 0 ? '0.0¢' : bracket.rate === 19 ? '19.0¢' : bracket.rate === 37 ? '37.0¢' : bracket.rate === 45 ? '45.0¢' : `${bracket.rate.toFixed(1)}¢`}</td>
+                <td className="px-6 py-3 whitespace-nowrap text-sm text-right text-gray-700 dark:text-gray-300">{bracket.rate === 30 ? '30.0¢' : bracket.rate === 0 ? '0.0¢' : bracket.rate === 16 ? '16.0¢' : bracket.rate === 37 ? '37.0¢' : bracket.rate === 45 ? '45.0¢' : `${bracket.rate.toFixed(1)}¢`}</td>
                 <td className="px-6 py-3 whitespace-nowrap text-sm text-right text-gray-700 dark:text-gray-300">{formatCurrency(bracket.amount)}</td>
               </tr>
             ))}
