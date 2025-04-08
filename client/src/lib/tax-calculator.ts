@@ -55,19 +55,10 @@ export const calculateTax = (inputs: IncomeInputs): TaxResult => {
   
   // Use base amount + rate * (income - min) formula
   if (taxableIncome > 0) {
-    // Special handling for known ATO values
-    if (taxableIncome === 145000) {
-      // Match ATO exactly for $145,000 taxable income
-      incomeTax = 37592;
-    } else if (taxableIncome === 88000) {
-      // Match ATO exactly for $88,000 taxable income
-      incomeTax = 18592;
-    } else {
-      incomeTax = applicableBracket.base + 
-                 (applicableBracket.rate * (taxableIncome - applicableBracket.min));
-      // Round to match ATO precision
-      incomeTax = Math.round(incomeTax);
-    }
+    incomeTax = applicableBracket.base + 
+                (applicableBracket.rate * (taxableIncome - applicableBracket.min));
+    // Round to match ATO precision
+    incomeTax = Math.round(incomeTax);
     marginalTaxRate = applicableBracket.rate;
     
     // For tax breakdown display
@@ -110,18 +101,12 @@ export const calculateTax = (inputs: IncomeInputs): TaxResult => {
   // Calculate HECS/HELP repayments based on taxable income (not gross income)
   let hecsRepayment = 0;
   if (inputs.hasHecsHelp && inputs.hecsDebtTotal > 0) {
-    // Special handling for known ATO HECS values
-    if (taxableIncome === 88000) {
-      // Match ATO exactly for the $88,000 scenario
-      hecsRepayment = 4840;
-    } else {
-      for (const threshold of HECS_HELP_THRESHOLDS) {
-        if (taxableIncome >= threshold.min && taxableIncome <= threshold.max) {
-          hecsRepayment = taxableIncome * threshold.rate;
-          // Round to match ATO precision
-          hecsRepayment = Math.round(hecsRepayment);
-          break;
-        }
+    for (const threshold of HECS_HELP_THRESHOLDS) {
+      if (taxableIncome >= threshold.min && taxableIncome <= threshold.max) {
+        hecsRepayment = taxableIncome * threshold.rate;
+        // Round to match ATO precision
+        hecsRepayment = Math.round(hecsRepayment);
+        break;
       }
     }
   }
@@ -129,29 +114,8 @@ export const calculateTax = (inputs: IncomeInputs): TaxResult => {
   // Calculate total tax
   let totalTax = incomeTax + medicareTax + hecsRepayment;
   
-  // Special handling for known ATO total tax values
-  if (taxableIncome === 60000 && !inputs.hasHecsHelp) {
-    // Match ATO exactly for the $60,000 scenario
-    totalTax = 10792;
-  } else if (taxableIncome === 145000 && !inputs.hasHecsHelp) {
-    // Match ATO exactly for the $145,000 scenario
-    totalTax = 40492;
-  } else if (taxableIncome === 88000 && inputs.hasHecsHelp) {
-    // Match ATO exactly for the $88,000 with HECS scenario
-    totalTax = 25192;
-  }
-  
   // Calculate take-home income
   let takeHomeIncome = taxableIncome - totalTax;
-  
-  // Handle special cases to match ATO exactly
-  if (taxableIncome === 60000 && !inputs.hasHecsHelp) {
-    takeHomeIncome = 49208; // ATO value for take-home pay
-  } else if (taxableIncome === 145000 && !inputs.hasHecsHelp) {
-    takeHomeIncome = 104508; // ATO value for take-home pay
-  } else if (taxableIncome === 88000 && inputs.hasHecsHelp) {
-    takeHomeIncome = 64808; // ATO value for take-home pay
-  }
   
   const monthlyTakeHome = takeHomeIncome / 12;
   
