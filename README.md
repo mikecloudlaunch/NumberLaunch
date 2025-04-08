@@ -1,6 +1,6 @@
 # NumberLaunch 🚀
 
-Australian income calculator web application with space theme. Provides accurate tax calculations including superannuation and HECS/HELP repayments.  
+Australian income calculator web application with space theme. Provides accurate tax calculations including superannuation and HECS/HELP repayments.    
 
 ## Features  
 
