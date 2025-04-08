@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "buildCommand": "node vercel-build.js",
-  "outputDirectory": "dist",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist/public",
   "routes": [
     { 
-      "src": "/api(.*)", 
-      "dest": "/api/index.js" 
+      "src": "/api/(.*)", 
+      "dest": "/dist/index.js" 
     },
     {
       "handle": "filesystem"
@@ -30,7 +30,7 @@
     "NODE_ENV": "production"
   },
   "functions": {
-    "api/index.js": {
+    "dist/index.js": {
       "memory": 1024,
       "maxDuration": 10
     }
