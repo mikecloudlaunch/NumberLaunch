@@ -5,7 +5,7 @@
   "routes": [
     { 
       "src": "/api/(.*)", 
-      "dest": "/dist/index.js" 
+      "dest": "/api/index.js" 
     },
     {
       "handle": "filesystem"
@@ -30,7 +30,7 @@
     "NODE_ENV": "production"
   },
   "functions": {
-    "dist/index.js": {
+    "api/index.js": {
       "memory": 1024,
       "maxDuration": 10
     }
