@@ -7,9 +7,72 @@ import path from 'path';
 console.log("Starting custom build process...");
 
 try {
-  // Build the frontend
-  console.log("Building frontend with Vite...");
-  execSync('vite build', { stdio: 'inherit' });
+  // Build the frontend from client directory
+  console.log("Building frontend with Vite from client directory...");
+  
+  // Check if client directory exists
+  if (!fs.existsSync('client')) {
+    console.error("Error: 'client' directory not found!");
+    process.exit(1);
+  }
+  
+  // Create dist directory if it doesn't exist
+  if (!fs.existsSync('dist')) {
+    fs.mkdirSync('dist', { recursive: true });
+  }
+  
+  // Build frontend
+  execSync('cd client && vite build', { stdio: 'inherit' });
+  
+  // Copy client/dist contents to root dist directory
+  console.log("Copying built frontend files to root dist directory...");
+  
+  if (fs.existsSync('client/dist')) {
+    // Copy all files from client/dist to root dist
+    const clientDistFiles = fs.readdirSync('client/dist');
+    for (const file of clientDistFiles) {
+      const sourcePath = path.join('client/dist', file);
+      const destPath = path.join('dist', file);
+      
+      // Check if it's a directory or file
+      if (fs.statSync(sourcePath).isDirectory()) {
+        // Copy directory recursively
+        if (!fs.existsSync(destPath)) {
+          fs.mkdirSync(destPath, { recursive: true });
+        }
+        
+        // Copy directory content recursively
+        const copyDirRecursively = (src, dest) => {
+          const entries = fs.readdirSync(src, { withFileTypes: true });
+          
+          for (const entry of entries) {
+            const srcPath = path.join(src, entry.name);
+            const destPath = path.join(dest, entry.name);
+            
+            if (entry.isDirectory()) {
+              if (!fs.existsSync(destPath)) {
+                fs.mkdirSync(destPath, { recursive: true });
+              }
+              copyDirRecursively(srcPath, destPath);
+            } else {
+              fs.copyFileSync(srcPath, destPath);
+              console.log(`Copied ${srcPath} to ${destPath}`);
+            }
+          }
+        };
+        
+        // Start recursive copy
+        copyDirRecursively(sourcePath, destPath);
+      } else {
+        // Copy file
+        fs.copyFileSync(sourcePath, destPath);
+        console.log(`Copied ${sourcePath} to ${destPath}`);
+      }
+    }
+  } else {
+    console.error("Error: 'client/dist' directory not found after build!");
+    process.exit(1);
+  }
   
   // Build the server files
   console.log("Building server files with esbuild...");

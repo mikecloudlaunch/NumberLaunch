@@ -28,6 +28,23 @@ try {
     process.exit(1);
   }
   
+  // Verify that index.html exists in the dist directory
+  if (!fs.existsSync(path.join('dist', 'index.html'))) {
+    console.error('ERROR: index.html is missing from dist directory!');
+    // Check if it's in client/dist instead
+    if (fs.existsSync(path.join('client', 'dist', 'index.html'))) {
+      console.log("\nFound index.html in client/dist, copying to dist directory...");
+      fs.copyFileSync(
+        path.join('client', 'dist', 'index.html'),
+        path.join('dist', 'index.html')
+      );
+      console.log("Copied index.html to dist directory");
+    } else {
+      console.error('FATAL: Could not find index.html in client/dist either!');
+      process.exit(1);
+    }
+  }
+  
   // Copy the api directory content to dist/api for completeness
   if (fs.existsSync('api')) {
     console.log("\nCopying API files to dist/api...");
@@ -45,6 +62,13 @@ try {
         console.log(`Copied api/${file} to dist/api/${file}`);
       }
     }
+  }
+  
+  // Log the contents of the dist directory for debugging
+  console.log("\nContents of dist directory:");
+  if (fs.existsSync('dist')) {
+    const distContents = fs.readdirSync('dist');
+    console.log(distContents);
   }
   
   console.log("\n=== VERCEL BUILD PROCESS COMPLETED SUCCESSFULLY ===");
