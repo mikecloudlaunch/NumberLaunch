@@ -2,7 +2,7 @@
 
 Australian income calculator web application with space theme. Provides accurate tax calculations including superannuation and HECS/HELP repayments.  
 
-## Features
+## Features  
 
 - Australian income tax calculator with accurate tax brackets
 - Support for superannuation calculations (including custom rates and additional contributions)
